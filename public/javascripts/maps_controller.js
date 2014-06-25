@@ -1,7 +1,6 @@
 MapsController = angular.module("MapsController", []);
 
 MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($scope, $http, $resource) {
-  
    $scope.center = {
         latitude: 37.7833,
         longitude: -122.4167
@@ -65,21 +64,27 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
 
     $scope.markersEvents = {
       click: function (gMarker, eventName, doctor) {
-        if(doctor.$id){
-          doctor = doctor.coords;//use scope portion then
-        }
+        console.log(doctor)
         var phone = doctor.phone.replace(/[^\w\s]/gi, '');
         var name = doctor.name.replace(/ /g, '+')
         alert(doctor.name + "  " + doctor.address + "   " + doctor.latitude + " " + doctor.longitude + "    " + doctor.zip_code + " " + phone);
         var yelpUrl = "http://api.yelp.com/v2/search?term=" + name + "&location=" + doctor.zip_code;
         var yelp2Url = "http://api.yelp.com/phone_search?phone=" + phone + "&ywsid=IDZJqj8ZCNQzMT0jC7yIFQ";
-        console.log(yelpUrl);
       },
       mouseover: function(gMarker, eventName, doctor) {
-        if(doctor.$id){
-          doctor = doctor.coords;//use scope portion then
-        }
-        // alert("Model: event:" + eventName + " " + JSON.stringify(model));
+        console.log(doctor);
+        var phone = doctor.phone.replace(/[^\w\s]/gi, '');
+        var name = doctor.name.replace(/ /g, '+')
+        var yelp2Url = "http://api.yelp.com/phone_search?phone=" + phone + "&ywsid=IDZJqj8ZCNQzMT0jC7yIFQ";
+        console.log(yelp2Url);
+        var response = $resource(yelp2Url, {
+           callback: "JSON_CALLBACK"
+        },
+        { method: "JSONP"
+        });
+        var json = response.get();
+        console.log(response);
+        console.log(json);
       }
     };
 
