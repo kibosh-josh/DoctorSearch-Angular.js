@@ -1,0 +1,1 @@
+MapsController = angular.module("MapsController", []);
