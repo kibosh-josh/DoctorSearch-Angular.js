@@ -5,10 +5,9 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
         latitude: 37.7833,
         longitude: -122.4167
     };
-    $scope.zoom = 13;
+    $scope.zoom = 16;
     $scope.yelp = [];
     $scope.doctors = [];
-    console.log($scope.doctors);
 
     var apiUrl = "http://doctorstats.herokuapp.com/api/v1/";
     // var Connection = $resource(apiUrl + "/doctors.json");
@@ -64,7 +63,6 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
 
     $scope.markersEvents = {
       click: function (gMarker, eventName, doctor) {
-        console.log(doctor)
         var phone = doctor.phone.replace(/[^\w\s]/gi, '');
         var name = doctor.name.replace(/ /g, '+')
         alert(doctor.name + "  " + doctor.address + "   " + doctor.latitude + " " + doctor.longitude + "    " + doctor.zip_code + " " + phone);
@@ -72,19 +70,24 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
         var yelp2Url = "http://api.yelp.com/phone_search?phone=" + phone + "&ywsid=IDZJqj8ZCNQzMT0jC7yIFQ";
       },
       mouseover: function(gMarker, eventName, doctor) {
-        console.log(doctor);
         var phone = doctor.phone.replace(/[^\w\s]/gi, '');
         var name = doctor.name.replace(/ /g, '+')
-        var yelp2Url = "http://api.yelp.com/phone_search?phone=" + phone + "&ywsid=IDZJqj8ZCNQzMT0jC7yIFQ";
-        console.log(yelp2Url);
-        var response = $resource(yelp2Url, {
-           callback: "JSON_CALLBACK"
-        },
-        { method: "JSONP"
+        var url = "/lookup?q=" + name + "&l=" + doctor.zip_code
+        var service = $resource(url);
+        service.get(function(data){ 
+          businessArray = data.businesses;
+          _.forEach(businessArray, function(val, key) {
+            var doctorarr = doctor.name.split(" ")
+            var namearr = val.name.split(" ")
+            if (doctorarr[0] === namearr[1] || doctorarr[1] === namearr[0]) {
+              console.log(doctor)
+              console.log(doctor.rating_img_url);
+              doctor = val
+              console.log(doctor);
+              console.log(doctor.rating_img_url);
+            }
+          });
         });
-        var json = response.get();
-        console.log(response);
-        console.log(json);
       }
     };
 

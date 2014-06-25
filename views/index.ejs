@@ -2,7 +2,8 @@
   <body ng-app="DoctorApp">
     <div ng-controller="mapCtrl">
       <google-map center="center" zoom="zoom" draggable="true" mark-click="false" options="{featureType:'poi.park',elementType:'all',stylers:[{hue:'#dddbd7'},{saturation:-81},{lightness:34},{visibility:'on'}]}">
-      <markers models="doctors" coords="'self'" events="markersEvents" labelContent="self.name"></markers>                      
+      <markers models="doctors" coords="'self'" events="markersEvents" labelContent="name" icon="'rating_img_url'" doRebuildAll="true" options="{animation: 'BOUNCE'}"></markers>
+      <windows models="doctors" coords="'self'" show="name" templateUrl="rating_image_url"></windows>               
       </google-map>
       <div ng-repeat="doctor in doctors track by $index" ng-mouseover="displayName(doctor)">{{doctor.name}}</div>
        <button class="btn" ng-click="getBlueCrossDoctors()">Fill up the map</button>
