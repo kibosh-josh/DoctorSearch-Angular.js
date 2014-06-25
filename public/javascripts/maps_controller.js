@@ -1,17 +1,15 @@
 MapsController = angular.module("MapsController", []);
 
 MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($scope, $http, $resource) {
-
-    $scope.markers = [{latitude: "37.7476597", longitude: "-122.4207005"}];
-    $scope.circles = [{latitude: "38.7476597", longitude: "-122.4207005"}];
-
-    $scope.center = {
+  
+   $scope.center = {
         latitude: 37.7833,
         longitude: -122.4167
     };
     $scope.zoom = 13;
     $scope.yelp = [];
     $scope.doctors = [];
+    console.log($scope.doctors);
 
     var apiUrl = "http://doctorstats.herokuapp.com/api/v1/";
     // var Connection = $resource(apiUrl + "/doctors.json");
@@ -83,6 +81,10 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
         }
         // alert("Model: event:" + eventName + " " + JSON.stringify(model));
       }
-  };
+    };
+
+    $scope.doSomething = function() {
+      console.log("hi");
+    };
 
 }]);

@@ -1,15 +1,22 @@
 <% include layout %>
-
   <body ng-app="DoctorApp">
     <div ng-controller="mapCtrl">
       <google-map center="center" zoom="zoom" draggable="true" mark-click="false" options="{featureType:'poi.park',elementType:'all',stylers:[{hue:'#dddbd7'},{saturation:-81},{lightness:34},{visibility:'on'}]}">
-      <!-- <marker ng-repeat="doctor in doctors | limitTo: 50" coords="doctor" events="markersEvents"></marker> -->
       <markers models="doctors" coords="'self'" events="markersEvents" labelContent="self.name"></markers>                      
       </google-map>
       <div ng-repeat="doctor in doctors track by $index" ng-mouseover="displayName(doctor)">{{doctor.name}}</div>
        <button class="btn" ng-click="getBlueCrossDoctors()">Fill up the map</button>
        <button class="btn" ng-click="clearTheDoctors()">Get Rid of IT!</button>
+       <button class="btn" ng-click="doSomething()">DO</button>
     </div>
+    <div ng-controller="mainCtrl">
+        {{1+3}}
+      <button class="btn" ng-click="getAllDoctors()">Click me</button>
+      <div ng-repeat="doctor in doctors track by $index">
+        {{doctor.latitude}}, - {{doctor.longitude}}
+      </div>
+    </div>
+
   </body>
 
 </html>
