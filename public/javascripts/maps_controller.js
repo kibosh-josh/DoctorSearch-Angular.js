@@ -4,6 +4,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     var apiUrl = "http://doctorstats.herokuapp.com/api/v1/";
     var mapStyles = [{"featureType":"water","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]},{"featureType":"landscape","stylers":[{"color":"#f2e5d4"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"administrative","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"road"},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{},{"featureType":"road","stylers":[{"lightness":20}]}];
 
+
     $scope.map = {
       current_marker: {},
       control: {},
@@ -27,6 +28,8 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       },
     };
     $scope.markersOptions = {animation: google.maps.Animation.DROP};
+    var iconBase = "http://maps.google.com/mapfiles/kml/pal4/icon63.png";
+
 
     $scope.clearMap = function() {
       $scope.map.markers = [];
@@ -39,7 +42,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
           if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 1200){
-            item.icon = null;
+            item.icon = iconBase;
             item.url = null;
             item.showWindow = false;
             
@@ -64,7 +67,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
           if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 400 && item.id > 160){
-            item.icon = null;
+            item.icon = iconBase;
             item.url = null;
             item.showWindow = false;
             
@@ -89,7 +92,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
           if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 400 && item.id > 160){
-            item.icon = null;
+            item.icon = iconBase;
             item.url = null;
             item.showWindow = false;
             
@@ -113,7 +116,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
           if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 400 && item.id > 1160){
-            item.icon = null;
+            item.icon = iconBase;
             item.url = null;
             item.showWindow = false;
             
@@ -138,7 +141,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
           if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 400 && item.id > 2160){
-            item.icon = null;
+            item.icon = iconBase;
             item.url = null;
             item.showWindow = false;
             
@@ -211,9 +214,9 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       //   });
       },
       mouseout: function(gMarker, eventName, marker) {
-      //   marker.closeClick();
-      //   marker.showWindow = false;
-      //   $scope.$apply();
+        // marker.closeClick();
+        // marker.showWindow = false;
+        // $scope.$apply();
       }
     }
 }]);

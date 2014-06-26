@@ -50,9 +50,9 @@
       <div ng-controller="mapCtrl">
           <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" events="map.events" control="map.control" styles="map.styles" options="{scrollwheel: false}">
           
-            <markers models="map.markers" class="pins" coords="'self'" click="'onClick'" events="markersEvents">
+            <markers models="map.markers" class="pins" coords="'self'" click="'onClick'" events="markersEvents" icon="'icon'">
 
-              <windows show="'showWindow'" class="infoWindow" closeClick="'closeClick'" ng-cloak="" options="map.windowOptions" icon="icon">
+              <windows show="'showWindow'" class="infoWindow" closeClick="'closeClick'" ng-cloak="" options="map.windowOptions">
                 <div id="popup" style="padding:5px">
                   <h4 ng-non-bindable>{{name}}</h4>
                   <p>
