@@ -3,7 +3,7 @@
     <div ng-controller="mapCtrl">
       <button class="col-md-2 btn btn-success" ng-click="map.refresh()">Refresh Map</button>
       
-      <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" events="map.events" control="map.control" styles="map.styles" options="map.options">
+      <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" events="map.events" control="map.control" styles="map.styles" options="{scrollwheel: false}">
       
       <markers models="map.markers" class="pins" coords="'self'" click="'onClick'" events="markersEvents" icon="icon">
 
@@ -14,8 +14,8 @@
               <img ng-if="icon !== null" ng-non-bindable src="{{icon}}"/>{{icon}}
             </p>
             <p>
-              <strong>Address</strong>
-              <span ng-non-bindable>{{address}}</span>
+              <strong>Address</strong><br>
+             <strong><span ng-non-bindable>{{address}}</span></strong>
             </p>
             <p>
               <strong><a ng-non-bindable href="{{url}}">Go to The Yelp Site </a><strong>
@@ -31,7 +31,6 @@
        <button class="btn" ng-click="getBlueCrossDoctors()">Cross</button>
        <button class="btn" ng-click="getBlueShieldDoctors()">Shield</button>
        <button class="btn" ng-click="clearMap()">Get Rid of IT!</button>
-       <div ng-repeat="m in map.markers track by $index" ng-mouseover="displayName(doctor)">{{m.name}}</div>
     </div>
     <div ng-controller="mainCtrl">
         {{1+3}}
