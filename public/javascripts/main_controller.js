@@ -9,7 +9,7 @@ MainController.controller("mainCtrl", ["$scope", "$http", "$resource", function(
     var Connection = $resource(url);
 
     $scope.getAllDoctors = function() {
-      console.log("Hi");
+      console.log("Hi")
     }
 
     // $scope.doctors = Connection.query();

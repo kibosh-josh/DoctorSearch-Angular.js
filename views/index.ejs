@@ -1,14 +1,24 @@
 <% include layout %>
   <body ng-app="DoctorApp">
     <div ng-controller="mapCtrl">
-      <google-map center="center" zoom="zoom" draggable="true" mark-click="false" options="{featureType:'poi.park',elementType:'all',stylers:[{hue:'#dddbd7'},{saturation:-81},{lightness:34},{visibility:'on'}]}">
-      <markers models="doctors" coords="'self'" events="markersEvents" labelContent="name" icon="'rating_img_url'" doRebuildAll="true" options="{animation: 'BOUNCE'}"></markers>
-      <windows models="doctors" coords="'self'" show="name" templateUrl="rating_image_url"></windows>               
+      <button class="col-md-2 btn btn-success" ng-click="map.refresh()">Refresh Map</button>
+      
+      <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" events="map.events" control="map.control" options="{featureType:'poi.park',elementType:'all',stylers:[{hue:'#dddbd7'},{saturation:-81},{lightness:34},{visibility:'on'}]}">
+      
+      <markers models="map.markers" coords="'self'" events="markersEvents" labelContent="name" doRebuildAll="true">
+
+        <windows setVisible="'showWindow'" show="showWindow'" closeClick="'closeClick'">
+          <p>hihih</p>
+        </windows>
+      
+      </markers>              
+      
       </google-map>
-      <div ng-repeat="doctor in doctors track by $index" ng-mouseover="displayName(doctor)">{{doctor.name}}</div>
+      
+      <div ng-repeat="m in map.markers track by $index" ng-mouseover="displayName(doctor)">{{m.name}}</div>
        <button class="btn" ng-click="getBlueCrossDoctors()">Fill up the map</button>
-       <button class="btn" ng-click="clearTheDoctors()">Get Rid of IT!</button>
-       <button class="btn" ng-click="doSomething()">DO</button>
+       <button class="btn" ng-click="clearMap()">Get Rid of IT!</button>
+       <button class="btn" ng-click="blah()">DO</button>
     </div>
     <div ng-controller="mainCtrl">
         {{1+3}}
