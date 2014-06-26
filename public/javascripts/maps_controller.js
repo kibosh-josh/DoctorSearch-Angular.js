@@ -63,7 +63,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       var Connection = $resource(apiUrl + "/blue_shield.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 200 && item.id > 160){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 400 && item.id > 160){
             item.icon = null;
             item.url = null;
             item.showWindow = false;
@@ -88,7 +88,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       var Connection = $resource(apiUrl + "/blue_cross.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 200 && item.id > 160){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 400 && item.id > 160){
             item.icon = null;
             item.url = null;
             item.showWindow = false;
@@ -112,7 +112,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       var Connection = $resource(apiUrl + "/doctors.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 200 && item.id > 1160){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 400 && item.id > 1160){
             item.icon = null;
             item.url = null;
             item.showWindow = false;
@@ -137,7 +137,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       var Connection = $resource(apiUrl + "/doctors.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 2000){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 400 && item.id > 2160){
             item.icon = null;
             item.url = null;
             item.showWindow = false;

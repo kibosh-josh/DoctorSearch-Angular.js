@@ -99,20 +99,122 @@
               </div><!-- /.container -->
           </div><!-- /.search-box-inner -->
       </div>
+      <div ng-controller="mainCtrl">
+        <div id="page-content">
+          <section id="banner">
+            <div class="block has-dark-background background-color-default-darker center text-banner">
+                <div class="container">
+                    <h1 class="no-bottom-margin no-border">DocSearch <a href="#" class="text-underline">When you have to Know</a>!</h1>
+                </div>
+            </div>
+        </section><!-- /#banner -->
+        <section id="our-services" class="block">
+            <div class="container">
+                <header class="section-title"><h2>Here is what others have said</h2></header>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="feature-box equal-height">
+                            <figure class="icon"><i class="fa fa-folder"></i></figure>
+                            <aside class="description">
+                                <header><h3>Doctor Search saved my life</h3></header>
+                                <p>I really need a doctor and I had just changed insurance plans. I'm glad I found this site.</p><br><br><br>
+                                <p>- Suzy M.</p>
+                                <a href="#" class="link-arrow">Read More</a>
+                            </aside>
+                        </div><!-- /.feature-box -->
+                    </div><!-- /.col-md-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="feature-box equal-height">
+                            <figure class="icon"><i class="fa fa-users"></i></figure>
+                            <aside class="description">
+                                <header><h3>Way faster than calling my insurance provider</h3></header>
+                                <p>I was hold on hours just trying to figure out what doctor was in my new network. Then I found DoctorSearch.</p><br><br><p>- JP</p>
+                                <a href="#" class="link-arrow">Read More</a>
+                            </aside>
+                        </div><!-- /.feature-box -->
+                    </div><!-- /.col-md-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="feature-box equal-height">
+                            <figure class="icon"><i class="fa fa-money"></i></figure>
+                            <aside class="description">
+                                <header><h3>This is the best thing since sliced bread!</h3></header>
+                                <p>And it tastes better too. Also you don't have to worry about finding bread crumbs all over your shirt later...</p><br><br><p>- Michael M.</p>
+                                <a href="#" class="link-arrow">Read More</a>
+                            </aside>
+                        </div><!-- /.feature-box -->
+                    </div><!-- /.col-md-4 -->
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+        </section><!-- /#our-services -->
+        <section id="advertising" class="block">
+            <div class="container">
+                <a href="#">
+                    <div class="banner">
+                        <div class="wrapper">
+                            <span class="title">Do you like this site? Want to improve it?</span>
+                            <span class="submit">Submit suggestions here <i class="fa fa-plus-square"></i></span>
+                        </div>
+                    </div><!-- /.banner-->
+                </a>
+            </div>
+        </section><!-- /#adveritsing-->
+    </div>      
+  </div>
 
-
-
-
-
-
-       <button class="btn" ng-click="getBlueCrossDoctors()">Cross</button>
-       <button class="btn" ng-click="getBlueShieldDoctors()">Shield</button>
-       <button class="btn" ng-click="clearMap()">Get Rid of IT!</button>
+    <footer ng-hide="showFooter()"id="page-footer">
+        <div class="inner">
+            <section id="footer-main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xl-4">
+                            <article>
+                                <h3>About Me</h3>
+                                <p>My name is Joshua Pearson and I'm an aspiring web developer. This was my final project before graduating from
+                                    <a href="http://www.generalassemb.ly">www.generalassemb.ly</a>. Please feel free to follow me on twitter 
+                                    <a href="http://www.twitter.com/joshuapears0n">www.twitter.com/joshuapears0n</a><br>
+                                    <a href="https://github.com/Joshua-Pearson">https://github.com/Joshua-Pearson</a>
+                                </p>
+                                <hr>
+                            </article>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <article>
+                                <h3>Contact</h3>
+                                <address>
+                                    <strong>Joshua Pearson</strong><br>
+                                    San Francisco, CA<br>
+                                </address>
+                                <a>joshua.david.pearson@gmail.com</a><br>
+                                <a href="http://www.linkedin.com/in/joshuapears0n">My LinkedIn Profile</a>
+                                <hr>
+                            </article>
+                        </div>
+                        <!--TODO // IF I EVER ACTUALLY WANT TO HAVE THIS STUFF-->
+                         <div class="col-md-4 col-sm-4">
+                            <article>
+                                <h3>Useful Links</h3>
+                                <ul class="list-unstyled list-links">
+                                    <li><a href="#">All Properties</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Login and Register Account</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="#">Terms and Conditions</a></li>
+                                </ul>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="footer-thumbnails" class="footer-thumbnails"></section><!-- /#footer-thumbnails -->
+            <section id="footer-copyright">
+                <div class="container">
+                    <span>Copyright © 2014. All Rights Reserved.</span>
+                    <span class="pull-right"><a href="#page-top" class="roll">Go to top</a></span>
+                </div>
+            </section>
+        </div><!-- /.inner -->
+      </footer>
     </div>
-    <div ng-controller="mainCtrl">
-      </div>
-    </div>
-
   </body>
 
 </html>
