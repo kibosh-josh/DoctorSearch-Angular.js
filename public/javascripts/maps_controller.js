@@ -13,7 +13,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
         latitude: 37.7683,
         longitude: -122.4408
       },
-      zoom: 13,
+      zoom: 14,
       styles: mapStyles,
       dragging: true,
       windowOptions: {
@@ -30,27 +30,24 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       var Connection = $resource(apiUrl + "/doctors.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 200){
             item.icon = null;
             item.url = null;
             item.showWindow = false;
-            that = item;
             
             item.onClick = function() {
-              console.log(that)
               item.showWindow = true;
               $scope.$apply();
-            }
+            };
             
             item.closeClick = function() {
-            console.log('close click - hiding window');
             item.showWindow = false;
             $scope.$apply();
-            }
+            };
           $scope.map.api.push(item);
           }
-        })
-        $scope.map.markers = $scope.map.api
+        });
+        $scope.map.markers = $scope.map.api;
       });
     };
 
@@ -58,27 +55,24 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       var Connection = $resource(apiUrl + "/blue_shield.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 200){
             item.icon = null;
             item.url = null;
             item.showWindow = false;
-            that = item;
             
             item.onClick = function() {
-              console.log(that)
               item.showWindow = true;
               $scope.$apply();
-            }
+            };
             
             item.closeClick = function() {
-            console.log('close click - hiding window');
             item.showWindow = false;
             $scope.$apply();
-            }
+            };
           $scope.map.api.push(item);
           }
-        })
-        $scope.map.markers = $scope.map.api
+        });
+        $scope.map.markers = $scope.map.api;
       });
     };
     
@@ -86,124 +80,113 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       var Connection = $resource(apiUrl + "/blue_cross.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 200){
             item.icon = null;
             item.url = null;
             item.showWindow = false;
-            that = item;
             
             item.onClick = function() {
-              console.log(that)
               item.showWindow = true;
               $scope.$apply();
-            }
+            };
             
             item.closeClick = function() {
-            console.log('close click - hiding window');
             item.showWindow = false;
             $scope.$apply();
-            }
+            };
           $scope.map.api.push(item);
           }
-        })
-        $scope.map.markers = $scope.map.api
+        });
+        $scope.map.markers = $scope.map.api;
       });
     };
     $scope.getCchpDoctors = function() {
       var Connection = $resource(apiUrl + "/cchp.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 200){
             item.icon = null;
             item.url = null;
             item.showWindow = false;
-            that = item;
             
             item.onClick = function() {
-              console.log(that)
               item.showWindow = true;
               $scope.$apply();
-            }
+            };
             
             item.closeClick = function() {
-            console.log('close click - hiding window');
             item.showWindow = false;
             $scope.$apply();
-            }
+            };
           $scope.map.api.push(item);
           }
-        })
-        $scope.map.markers = $scope.map.api
+        });
+        $scope.map.markers = $scope.map.api;
       });
     };
 
     $scope.getKaiserDoctors = function() {
-      var Connection = $resource(apiUrl + "/cchp.json");
+      var Connection = $resource(apiUrl + "/kaiser.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 200){
             item.icon = null;
             item.url = null;
             item.showWindow = false;
-            that = item;
             
             item.onClick = function() {
-              console.log(that)
               item.showWindow = true;
               $scope.$apply();
-            }
+            };
             
             item.closeClick = function() {
-            console.log('close click - hiding window');
             item.showWindow = false;
             $scope.$apply();
-            }
+            };
           $scope.map.api.push(item);
           }
-        })
-        $scope.map.markers = $scope.map.api
+        });
+        $scope.map.markers = $scope.map.api;
       });
     };
 
     $scope.markersEvents = {
       click: function (gMarker, eventName, marker) {
-        marker.showWindow = true;
-        console.log(marker);
-        console.log(gMarker);
+        // gMarker.animation = google.maps.Animation.BOUNCE
         var phone = marker.phone.replace(/[^\w\s]/gi, '');
         var name = marker.name.replace(/ /g, '+')
-        // alert(marker.name + "  " + marker.address + "   " + marker.latitude + " " + marker.longitude + "    " + marker.zip_code + " " + phone);
         var yelpUrl = "http://api.yelp.com/v2/search?term=" + name + "&location=" + marker.zip_code;
         var yelp2Url = "http://api.yelp.com/phone_search?phone=" + phone + "&ywsid=IDZJqj8ZCNQzMT0jC7yIFQ";
-        console.log(marker.icon)
-      },
+`      },
       mouseover: function(gMarker, eventName, marker) {
-        console.log("This is Gmarker", gMarker)
-        // console.log("This is eventname", eventName)
-        // console.log("This is marker", marker)
-        // console.log("parent", this.$parent)
-        // console.log("this", this)
-        // marker.showWindow = true;
-        // $scope.$apply();
-        gMarker.animation = google.maps.Animation.BOUNCE
+        marker.showWindow = true;
+        $scope.$apply();
         var phone = marker.phone.replace(/[^\w\s]/gi, '');
         var name = marker.name.replace(/ /g, '+')
         var url = "/lookup?q=" + name + "&l=" + marker.zip_code
         var service = $resource(url);
 
         service.get().$promise.then(function (data){
-          businessArray = data.businesses;
-          _.each(businessArray, function (object){
-            var markerArr = marker.name.split(" ")
-            var namearr = object.name.split(" ")
-            if (markerArr[0] === namearr[1] || markerArr[1] === namearr[0]) {
-              marker.icon = object.rating_img_url_small;
-              marker.url = object.url;
-              console.log(marker.name + marker.url + marker.icon)
-              return marker
-            }
-          });
+          if (data.businesses.length > 0){
+            businessArray = data.businesses;
+            _.each(businessArray, function (object){
+              var markerArr = marker.name.split(" ")
+              var namearr = object.name.split(" ")
+              if (markerArr[0] === namearr[1] || markerArr[1] === namearr[0]) {
+                marker.icon = object.rating_img_url;
+                marker.url = object.url;
+                return marker
+              }
+            });
+          } else {
+            marker.icon = "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/5ef3eb3cb162/ico/stars/v1/stars_3_half.png"
+            marker.url = "https://www.google.com/#q=" + name
+          }
         });
+      },
+      mouseleave: function(gMarker, eventName, marker) {
+        marker.showWIndow = false;
+        $scope.$apply();
       }
     };
 }]);

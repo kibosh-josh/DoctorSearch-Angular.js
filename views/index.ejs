@@ -3,19 +3,22 @@
     <div ng-controller="mapCtrl">
       <button class="col-md-2 btn btn-success" ng-click="map.refresh()">Refresh Map</button>
       
-      <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" events="map.events" control="map.control" styles="map.styles">
+      <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" events="map.events" control="map.control" styles="map.styles" options="map.options">
       
-      <markers models="map.markers" class="pins" coords="'self'" click="'onClick'" events="markersEvents" options="markersOptions">
+      <markers models="map.markers" class="pins" coords="'self'" click="'onClick'" events="markersEvents" options="markersOptions" icon="">
 
-        <windows show="'showWindow'" class="infoWindow" closeClick="'closeClick'" ng-cloak="" options="map.windowOptions">
+        <windows show="'showWindow'" class="infoWindow" closeClick="'closeClick'" ng-cloak="" options="map.windowOptions" icon="icon">
           <div id="popup" style="padding:5px">
             <h4 ng-non-bindable>{{name}}</h4>
             <p>
-              <img ng-non-bindable src={{icon}}/>
+              <img ng-if="icon !== null" ng-non-bindable src="{{icon}}"/>{{icon}}
             </p>
             <p>
               <strong>Address</strong>
               <span ng-non-bindable>{{address}}</span>
+            </p>
+            <p>
+              <strong><a ng-non-bindable href="{{url}}">Go to The Yelp Site </a><strong>
             </p>
           </div>
         </windows>
