@@ -1,42 +1,115 @@
 <% include layout %>
   <body ng-app="DoctorApp">
-    <div ng-controller="mapCtrl">
-      <button class="col-md-2 btn btn-success" ng-click="map.refresh()">Refresh Map</button>
-      
-      <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" events="map.events" control="map.control" styles="map.styles" options="{scrollwheel: false}">
-      
-      <markers models="map.markers" class="pins" coords="'self'" click="'onClick'" events="markersEvents" icon="icon">
-
-        <windows show="'showWindow'" class="infoWindow" closeClick="'closeClick'" ng-cloak="" options="map.windowOptions" icon="icon">
-          <div id="popup" style="padding:5px">
-            <h4 ng-non-bindable>{{name}}</h4>
-            <p>
-              <img ng-if="icon !== null" ng-non-bindable src="{{icon}}"/>{{icon}}
-            </p>
-            <p>
-              <strong>Address</strong><br>
-             <strong><span ng-non-bindable>{{address}}</span></strong>
-            </p>
-            <p>
-              <strong><a ng-non-bindable href="{{url}}">Go to The Yelp Site </a><strong>
-            </p>
+    <body class="page-homepage navigation-fixed-top map-google" id="page-top" data-spy="scroll" data-target=".navigation" data-offset="90">
+      <div class="wrapper">
+        <div class="navigation">
+          <div class="secondary-navigation">
+            <div class="container">
+              <div class="contact">
+                <figure><strong>Questions?</strong></figure>
+                <figure><strong>Email:</strong>DocSearch@gmail.com</figure>
+              </div>
+            </div>
           </div>
-        </windows>
-      
-      </markers>              
-      
-      </google-map>
-      
+          <div class="container">
+            <header class="navbar" id="top" role="banner">
+              <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-brand nav" id="brand">
+                  DocSearch
+                </div>
+              </div>
+              <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+                <ul class="nav navbar-nav">
+                  <li class="active has-child"><a href="#">My Links</a>
+                    <ul class="child-navigation">
+                      <li><a href="https://github.com/Joshua-Pearson">My Github</a></li>
+                      <li><a href="http://www.linkedin.com/in/joshuapears0n">My LinkedIn</a></li>
+                      <li><a href="http://joshua-pearson.blogspot.com/">My Blog</a></li>
+                      <li><a href="http://www.linkedin.com/in/joshuapears0n">My WebPage</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#">Submit</a></li>
+                  <li class="has-child"><a href="#">Blog</a>
+                    <ul class="child-navigation">
+                      <li><a href="#">Blog Listing</a></li>
+                      <li><a href="#">Blog Post Detail</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#">Contact</a></li>
+                </ul>
+              </nav><!-- /.navbar collapse-->
+            </header><!-- /.navbar -->
+          </div><!-- /.container -->
+      </div>
+      <div ng-controller="mapCtrl">
+          <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" events="map.events" control="map.control" styles="map.styles" options="{scrollwheel: false}">
+          
+            <markers models="map.markers" class="pins" coords="'self'" click="'onClick'" events="markersEvents" icon="icon">
+
+              <windows show="'showWindow'" class="infoWindow" closeClick="'closeClick'" ng-cloak="" options="map.windowOptions" icon="icon">
+                <div id="popup" style="padding:5px">
+                  <h4 ng-non-bindable>{{name}}</h4>
+                  <p>
+                    <img ng-if="icon !== null" ng-non-bindable src="{{icon}}"/>{{icon}}
+                  </p>
+                  <p>
+                    <strong>Address</strong><br>
+                   <strong><span ng-non-bindable>{{address}}</span></strong>
+                  </p>
+                  <p>
+                    <strong><a ng-non-bindable href="{{url}}">Go to The Yelp Site </a><strong>
+                  </p>
+                </div>
+              </windows>
+            </markers>              
+          </google-map>
+        <div class="search-box-wrapper">
+          <div class="search-box-inner">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-3 col-sm-4">
+                          <div class="show-search-box">
+                              <form role="form" id="form-map" class="form-map form-search">
+                                  <h2>Search for a Doctor</h2>
+                                  <div class="form-group">
+<!--                                       <input type="text" class="form-control" id="search-box-property-id" placeholder="name of Doctor"> -->
+                                  </div>
+                                  <div class="form-group">
+          <!--                             <select name="type"> -->
+                                          <option value="">Insurance</option>
+                                          <button class="btn" ng-click="getBlueCrossDoctors()">Blue Cross</button><br>
+                                          <button class="btn" ng-click="getBlueShieldDoctors()">Blue Shield</button><br>
+                                           <button class="btn" ng-click="getKaiserDoctors()">Kaiser</button><br>
+                                          <button class="btn" ng-click="getCchpDoctors()">CCHP</button><br>
+                                <!--       </select> -->
+                                  </div><!-- /.form-group -->
+                                  <div class="form-group">
+                                      <button type="submit" class="btn btn-default" ng-click="clearMap()">New Search</button>
+                                  </div><!-- /.form-group -->
+                              </form><!-- /#form-map -->
+                          </div><!-- /.search-box.map -->
+                      </div><!-- /.col-md-3 -->
+                  </div><!-- /.row -->
+              </div><!-- /.container -->
+          </div><!-- /.search-box-inner -->
+      </div>
+
+
+
+
+
 
        <button class="btn" ng-click="getBlueCrossDoctors()">Cross</button>
        <button class="btn" ng-click="getBlueShieldDoctors()">Shield</button>
        <button class="btn" ng-click="clearMap()">Get Rid of IT!</button>
     </div>
     <div ng-controller="mainCtrl">
-        {{1+3}}
-      <button class="btn" ng-click="getAllDoctors()">Click me</button>
-      <div ng-repeat="doctor in doctors track by $index">
-        {{doctor.latitude}}, - {{doctor.longitude}}
       </div>
     </div>
 
