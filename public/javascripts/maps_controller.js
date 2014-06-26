@@ -25,12 +25,17 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     };
     $scope.markersOptions = {animation: google.maps.Animation.DROP};
 
+    $scope.clearMap = function() {
+      $scope.map.markers = [];
+      $scope.$apply();
+    }
+
 
     $scope.getAllDoctors = function() {
       var Connection = $resource(apiUrl + "/doctors.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 200){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 1200){
             item.icon = null;
             item.url = null;
             item.showWindow = false;
@@ -55,7 +60,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       var Connection = $resource(apiUrl + "/blue_shield.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 200){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 200 && item.id > 160){
             item.icon = null;
             item.url = null;
             item.showWindow = false;
@@ -80,7 +85,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       var Connection = $resource(apiUrl + "/blue_cross.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 200){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 200 && item.id > 160){
             item.icon = null;
             item.url = null;
             item.showWindow = false;
@@ -104,7 +109,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       var Connection = $resource(apiUrl + "/cchp.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 200){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 200 && item.id > 160){
             item.icon = null;
             item.url = null;
             item.showWindow = false;
@@ -152,15 +157,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
 
     $scope.markersEvents = {
       click: function (gMarker, eventName, marker) {
-        // gMarker.animation = google.maps.Animation.BOUNCE
-        var phone = marker.phone.replace(/[^\w\s]/gi, '');
-        var name = marker.name.replace(/ /g, '+')
-        var yelpUrl = "http://api.yelp.com/v2/search?term=" + name + "&location=" + marker.zip_code;
-        var yelp2Url = "http://api.yelp.com/phone_search?phone=" + phone + "&ywsid=IDZJqj8ZCNQzMT0jC7yIFQ";
-`      },
-      mouseover: function(gMarker, eventName, marker) {
-        marker.showWindow = true;
-        $scope.$apply();
+        marker.onClick();
         var phone = marker.phone.replace(/[^\w\s]/gi, '');
         var name = marker.name.replace(/ /g, '+')
         var url = "/lookup?q=" + name + "&l=" + marker.zip_code
@@ -184,9 +181,36 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
           }
         });
       },
-      mouseleave: function(gMarker, eventName, marker) {
-        marker.showWIndow = false;
-        $scope.$apply();
+      mouseover: function(gMarker, eventName, marker) {
+      //   marker.showWindow = true;
+      //   $scope.$apply();
+      //   var phone = marker.phone.replace(/[^\w\s]/gi, '');
+      //   var name = marker.name.replace(/ /g, '+')
+      //   var url = "/lookup?q=" + name + "&l=" + marker.zip_code
+      //   var service = $resource(url);
+
+      //   service.get().$promise.then(function (data){
+      //     if (data.businesses.length > 0){
+      //       businessArray = data.businesses;
+      //       _.each(businessArray, function (object){
+      //         var markerArr = marker.name.split(" ")
+      //         var namearr = object.name.split(" ")
+      //         if (markerArr[0] === namearr[1] || markerArr[1] === namearr[0]) {
+      //           marker.icon = object.rating_img_url;
+      //           marker.url = object.url;
+      //           return marker
+      //         }
+      //       });
+      //     } else {
+      //       marker.icon = "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/5ef3eb3cb162/ico/stars/v1/stars_3_half.png"
+      //       marker.url = "https://www.google.com/#q=" + name
+      //     }
+      //   });
+      },
+      mouseout: function(gMarker, eventName, marker) {
+      //   marker.closeClick();
+      //   marker.showWindow = false;
+      //   $scope.$apply();
       }
-    };
+    }
 }]);
