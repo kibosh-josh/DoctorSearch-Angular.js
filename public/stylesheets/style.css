@@ -4,7 +4,7 @@ a {
 
 .angular-google-map-container { 
   width: 100%;
-  height: 700px;
+  height: 900px;
 }
 
 a {
@@ -3405,7 +3405,7 @@ ul.list-links li a:hover {
 .search-box-wrapper {
   position: absolute;
   width: 100%;
-  top: 0px;
+  top: 400px;
 }
 .search-box-wrapper .search-box-inner h2 {
   margin-bottom: 20px;
@@ -5608,64 +5608,6 @@ body, html {
 
   .wrapper {
     display: block;
-  }
-}
-@media print {
-  #page-footer, .breadcrumb {
-    display: none;
-  }
-
-  .page-property-detail body, .page-property-detail html {
-    height: 100%;
-    width: 100%;
-    padding: 0;
-  }
-  .page-property-detail #sidebar, .page-property-detail #page-footer, .page-property-detail .thick, .page-property-detail .actions, .page-property-detail .navigation, .page-property-detail .breadcrumb {
-    display: none;
-  }
-
-  .page-invoice .navigation {
-    display: none;
-  }
-
-  .invoice {
-    font-size: 12px;
-  }
-  .invoice address {
-    line-height: 18px;
-  }
-  .invoice h1 {
-    font-size: 36px;
-    margin-top: 20px;
-  }
-  .invoice h2, .invoice h3 {
-    font-size: 18px;
-  }
-  .invoice section {
-    border-width: 1px;
-    padding: 10px 0;
-  }
-  .invoice dl dd {
-    margin-bottom: 4px;
-  }
-  .invoice #description-table th {
-    border-bottom: 2px solid #e8e8e8;
-    padding: 8px 0;
-  }
-  .invoice #description-table th:first-child {
-    padding-left: 0px;
-  }
-  .invoice #description-table th:last-child {
-    padding-right: 0px;
-  }
-  .invoice #description-table td {
-    padding: 10px 0;
-  }
-  .invoice #description-table td:first-child {
-    padding-left: 0px;
-  }
-  .invoice #description-table td:last-child {
-    padding-right: 0px;
   }
 }
 @page {
