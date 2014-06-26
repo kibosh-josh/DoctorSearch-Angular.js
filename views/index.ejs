@@ -5,20 +5,24 @@
       
       <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" events="map.events" control="map.control" options="{featureType:'poi.park',elementType:'all',stylers:[{hue:'#dddbd7'},{saturation:-81},{lightness:34},{visibility:'on'}]}">
       
-      <markers models="map.markers" coords="'self'" events="markersEvents" labelContent="name" doRebuildAll="true">
+      <markers models="map.markers" coords="'self'" icon="'icon'" click="'onClick'" events="markersEvents">
 
-        <windows setVisible="'showWindow'" show="showWindow'" closeClick="'closeClick'">
-          <p>hihih</p>
+        <windows show="'showWindow'" closeClick="'closeClick'" ng-cloak="">
+          <div id="popup">
+            <h2>Big Window</h2>
+            <p>little stuff</p>
+          </div>
         </windows>
       
       </markers>              
       
       </google-map>
       
-      <div ng-repeat="m in map.markers track by $index" ng-mouseover="displayName(doctor)">{{m.name}}</div>
+
        <button class="btn" ng-click="getBlueCrossDoctors()">Fill up the map</button>
        <button class="btn" ng-click="clearMap()">Get Rid of IT!</button>
-       <button class="btn" ng-click="blah()">DO</button>
+       <button class="btn" ng-click="doSomething()">DO</button>
+       <div ng-repeat="m in map.markers track by $index" ng-mouseover="displayName(doctor)">{{m.name}}</div>
     </div>
     <div ng-controller="mainCtrl">
         {{1+3}}
