@@ -42,7 +42,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       var Connection = $resource(apiUrl + "doctors.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 300){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
             item.icon = iconBase;
             item.url = null;
             item.showWindow = false;
@@ -57,7 +57,6 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
             $scope.$apply();
             };
           $scope.map.api.push(item);
-          console.log($scope.map.api);
           }
         });
         $scope.map.markers = $scope.map.api;
@@ -68,7 +67,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       var Connection = $resource(apiUrl + "blue_shield.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 400){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
             item.icon = iconBase;
             item.url = null;
             item.showWindow = false;
@@ -93,7 +92,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       var Connection = $resource(apiUrl + "blue_cross.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 400){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
             item.icon = iconBase;
             item.url = null;
             item.showWindow = false;
@@ -117,7 +116,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       var Connection = $resource(apiUrl + "cchp.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 20){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
             item.icon = iconBase;
             item.url = null;
             item.showWindow = false;
@@ -131,13 +130,10 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
               item.showWindow = false;
               $scope.$apply();
             };
-          console.log(item.latitude, item.longitude);
           $scope.map.api.push(item);
           }
         });
         $scope.map.markers = $scope.map.api;
-        console.log("line 145");
-        console.log($scope.map.markers);
       });
     };
 
@@ -145,7 +141,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       var Connection = $resource(apiUrl + "kaiser.json");
       Connection.query().$promise.then(function (result){
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 400){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
             item.icon = iconBase;
             item.url = null;
             item.showWindow = false;
