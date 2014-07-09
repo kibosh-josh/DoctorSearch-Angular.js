@@ -21,7 +21,6 @@ var yelpv1_phone = function(phone, callback) {
   http.request(options, function(res) {
     res.setEncoding('utf8');
     res.on('data', function (data) {
-        console.log(data);
         callback(data); 
     });
   });
@@ -36,10 +35,8 @@ router.get('/', function(req, res) {
 router.get('/phone_lookup', function(request, response) {
 
   var q = request.query.q;
-        console.log(q);
 
   yelpv1_phone(q, function(data) {
-    console.log('ypcallback');
     response.setHeader('Content-Type', 'application/json');
     response.end(JSON.stringify(data));
   });

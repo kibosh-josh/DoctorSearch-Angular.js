@@ -130,6 +130,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
               item.showWindow = false;
               $scope.$apply();
             };
+          console.log(item);
           $scope.map.api.push(item);
           }
         });
@@ -165,7 +166,9 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     $scope.markersEvents = {
       click: function (gMarker, eventName, marker) {
         marker.onClick();
-        var phone = marker.phone.replace(/[^\w\s]/gi, '');
+        if (marker.phone !== null) {
+          var phone = marker.phone.replace(/[^\w\s]/gi, '');          
+        };
         var name = marker.name.replace(/ /g, '+')
         var url = "/lookup?q=" + name + "&l=" + marker.zip_code
         var service = $resource(url);
@@ -184,8 +187,9 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
             });
           } else {
             marker.icon = "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/5ef3eb3cb162/ico/stars/v1/stars_3_half.png"
-            marker.url = "https://www.google.com/#q=" + name
+            marker.url = "http://www.google.com/#q=" + name
           }
+          console.log(marker.url);
         });
       },
       mouseover: function(gMarker, eventName, marker) {
