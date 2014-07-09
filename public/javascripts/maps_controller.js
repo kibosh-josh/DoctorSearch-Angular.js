@@ -29,12 +29,57 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     };
     $scope.markersOptions = {animation: google.maps.Animation.DROP};
 
+    $scope.insurances = [
+    { value: "1", display: "Blue Cross PPO and EPO" },
+    { value: "2", display: "Blue Cross HMO" },
+    { value: "3", display: "Kaiser" },
+    { value: "4", display: "Blue Shield PPO" },
+    { value: "5", display: "Blue Shield EPO" },
+    { value: "6", display: "Chinese Community Health Plan" }
+    ];
+
     var iconBase = "http://maps.google.com/mapfiles/kml/pal4/icon63.png";
+
+    $scope.alreadySearched = false;
 
 
     $scope.clearMap = function() {
+      $scope.map.api = [];
       $scope.map.markers = [];
-      $scope.$apply();
+      $scope.alreadySearched = false;
+    };
+
+    $scope.getDoctors = function() {
+      $scope.alreadySearched = true;
+      if ($scope.insurance.value === "1") {
+        var connection = $resource(apiUrl + "blue_cross.json");
+        connection.query().$promise.then(function (result){
+          _.each(result, function(item) {
+            if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
+              item.icon = iconBase;
+              item.url = null;
+              item.showWindow = false;
+              
+              item.onClick = function() {
+                item.showWindow = true;
+                $scope.$apply();
+              };
+
+              item.closeClick = function() {
+              item.showWindow = false;
+              $scope.$apply();
+              };
+            $scope.map.api.push(item);
+            }
+          });
+          console.log($scope.map.api);
+          $scope.map.markers = $scope.map.api;
+        });
+      }
+      // console.log($scope.doctorForm.doctorName);
+      // console.log($scope.doctorForm.doctorSpecialty);
+      // console.log($scope.doctorForm.doctorMedGroup);
+      // console.log($scope.insurance.value);
     };
 
 

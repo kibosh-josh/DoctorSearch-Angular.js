@@ -6,7 +6,7 @@
           <div class="container">
             <div class="contact">
               <figure><strong>Questions?</strong></figure>
-              <figure><strong>Email:</strong>coveredSF@gmail.com</figure>
+              <figure><strong>Email:</strong><a href="mailto:coveredSF@gmail.com">coveredSF@gmail.com</a></figure>
             </div>
           </div>
         </div>
@@ -70,23 +70,30 @@
         <div class="search-box-inner">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3 col-sm-4">
+                    <div class="col-md-4 col-sm-4">
                         <div class="show-search-box">
-                            <form role="form" id="form-map" class="form-map form-search">
-                                <h2>Search for a Doctor</h2>
+                            <form role="form" id="form-map" class="form-map form-search" name="doctorForm">
+                                <h2>Search Doctors by Insurance</h2>
                                 <div class="form-group">
-                                  <input type="text" class="form-control" id="search-box-property-id" placeholder="name of Doctor">
+                                  <input type="text" class="form-control" id="doctorname" name="doctorName" ng-model="doctor.name" placeholder="name of doctor (optional)">
                                 </div>
                                 <div class="form-group">
-                                  <option value="">Insurance</option>
-                                  <button class="btn" ng-click="getBlueCrossDoctors()">Blue Cross</button><br>
-                                  <button class="btn" ng-click="getBlueShieldDoctors()">Blue Shield</button><br>
-                                  <button class="btn" ng-click="getKaiserDoctors()">Kaiser</button><br>
-                                  <button class="btn" ng-click="getCchpDoctors()">CCHP</button><br>
+                                  <input type="text" class="form-control" id="doctorspecialty" name="doctorSpecialty" ng-model="doctor.specialty" placeholder="doctor specialty (optional)">
                                 </div>
                                 <div class="form-group">
-                                  <button type="submit" class="btn btn-default" ng-click="clearMap()">New Search</button>
+                                  <input type="text" class="form-control" id="doctormedgroup" name="doctorMedGroup" ng-model="doctor.medical_group" placeholder="medical group of doctor (optional)">
+                                </div>
+                                <div class="form-group">
+                                  <select name="insurance" ng-model="insurance" ng-options="insurance as insurance.display for insurance in insurances">
+                                    <option value="" ng-hide="insurance"> Select Insurance (required)</option>
+                                  </select>
                                 </div><!-- /.form-group -->
+                                <div class="form-group">
+                                  <button class="btn btn-default" ng-click="getDoctors()">Search</button>
+                                </div><!-- /.form-group -->
+                                <div class="form-group">
+                                  <button type="submit" class="btn btn-default" ng-click="clearMap()" ng-show="alreadySearched">Clear Map</button>
+                                </div>
                             </form><!-- /#form-map -->
                         </div><!-- /.search-box.map -->
                     </div><!-- /.col-md-3 -->
@@ -177,7 +184,7 @@
                           <address>
                             <strong>Joshua Pearson</strong><br><br>San Francisco, CA<br>
                           </address>
-                          <a>joshua.david.pearson@gmail.com</a><br>
+                          <a href="mailto:joshua.david.pearson@gmail.com">joshua.david.pearson@gmail.com</a><br>
                           <a href="http://www.linkedin.com/in/joshuapears0n">My LinkedIn Profile</a>
                           <hr>
                       </article>
