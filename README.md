@@ -9,7 +9,7 @@
 
 <h5> I built this app as well as the API <a>https://github.com/Joshua-Pearson/DoctorAPI</a> as my final graduating project at General Assembly, one of the best Web Development Immersive programs in San Francisco, CA. If you like this project or would just like to make any suggestions, here is my contact information:</h5>
 
-<a href="www.covered-sf.com">This Project</a>
-<a href="www.twitter.com/joshuapears0n">My Twitter</a>
-<a href="www.linkedin.com/in/joshuapears0n">My linked In Profile</a>
-<a href="joshua.david.pearson@gmail.com">My Email</a>
+<a href="http://www.covered-sf.com">This Project</a><br>
+<a href="http://www.twitter.com/joshuapears0n">My Twitter</a><br>
+<a href="http://www.linkedin.com/in/joshuapears0n">My linked In Profile</a><br>
+<a href="mailto:joshua.david.pearson@gmail.com">My Email</a>
