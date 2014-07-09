@@ -4342,24 +4342,8 @@ input[type="text"]:hover, input[type="email"]:hover, input[type="search"]:hover,
 }
 #page-footer .inner .property-thumbnail {
   background-color: #1396e2;
-  float: left;
   height: 60px;
   overflow: hidden;
-}
-#page-footer .inner .property-thumbnail:hover img {
-  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
-  opacity: 1;
-}
-#page-footer .inner .property-thumbnail img {
-  -moz-backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  -moz-transition: 0.4s;
-  -o-transition: 0.4s;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
-  opacity: 0.2;
-  width: 100%;
 }
 
 body, html {
@@ -4378,7 +4362,6 @@ body, html {
 }
 
 #page-footer {
-  display: table-row;
   height: 1px;
 }
 

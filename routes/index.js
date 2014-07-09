@@ -8,8 +8,7 @@ var yelp = require("yelp").createClient({
   token_secret: "kll6K39QuwwB9Y5sPq_2TqqBXbk"
 });
 
-var yelpv1_phone = function(phone, callback)
-{
+var yelpv1_phone = function(phone, callback) {
   var options = {
     hostname: 'api.yelp.com'
     ,port: 80

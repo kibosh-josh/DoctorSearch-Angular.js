@@ -4,13 +4,14 @@ MainController.controller("mainCtrl", ["$scope", "$http", "$resource", function(
   
     $scope.yelp = [];
     $scope.doctors = [];
+    $scope.footer = false
 
     var url = "http://doctorstats.herokuapp.com/api/v1/doctors.json";
     var Connection = $resource(url);
 
-    $scope.getAllDoctors = function() {
-      console.log("Hi")
-    }
+    $scope.showFooter = function() {
+      $scope.footer = true
+    };
 
     // $scope.doctors = Connection.query();
 
