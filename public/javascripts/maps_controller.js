@@ -54,6 +54,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       $scope.map.markers = [];
       $scope.alreadySearched = false;
       doctorForm.reset();
+      $scope.doctor.text = "";
       $scope.doctor = false;
     };
 
@@ -61,6 +62,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       $scope.alreadySearched = true;
       console.log($scope.doctor.display);
       console.log($scope.doctor.text);
+      console.log($scope.insurance.value);
       if ($scope.insurance.value === "1") {
         var connection = $resource(apiUrl + "blue_cross.json");
         connection.query().$promise.then(function (result){
