@@ -157,13 +157,14 @@
               </div><!-- /.row -->
             </div><!-- /.container -->
           </section><!-- /#our-services -->
-          <section id="advertising" class="block">
+          <section id="advertising" class="block" ng-hide="footer">
             <div class="container">
               <a href="">
                 <div class="banner">
                   <div class="wrapper">
                     <span class="title">About Me</span>
-                    <span class="submit" ng-click="showFooter()">Click to see more</span>
+                    <span class="submit" ng-click="showFooter()" ng-hide="footer">Click to see more</span>
+                    <span class="picture" ng-show="footer"><img src="http://i.imgur.com/bRHcbF5.jpg"/></span>
                   </div>
                 </div><!-- /.banner-->
               </a>
@@ -175,30 +176,30 @@
               <section id="footer-main">
                 <div class="container">
                   <div class="row">
-                    <div class="col-md-4 col-sm-4">
+                    <div class="col-md-3 col-sm-3">
                       <article>
                         <h3>About Me</h3>
-                        <p>My name is Joshua Pearson and I'm an aspiring web developer. This was my final project before graduating from
-                            <a href="http://www.generalassemb.ly">www.generalassemb.ly</a>. Please feel free to follow me on twitter 
-                            <a href="http://www.twitter.com/joshuapears0n">www.twitter.com/joshuapears0n</a><br>
-                            <a href="https://github.com/Joshua-Pearson">https://github.com/Joshua-Pearson</a>
+                        <p>My name is Joshua Pearson and I'm passionate about web development. This was my final project before graduating from
+                          <a href="http://www.generalassemb.ly">www.generalassemb.ly</a>. Please feel free to follow me on twitter 
+                          <a href="http://www.twitter.com/joshuapears0n">www.twitter.com/joshuapears0n</a><br>
+                          <a href="https://github.com/Joshua-Pearson">https://github.com/Joshua-Pearson</a>
                         </p>
                         <hr>
                       </article>
                     </div>
-                    <div class="col-md-4 col-sm-4">
+                    <div class="col-md-3 col-sm-3">
                       <article>
                         <h3>Contact</h3>
                           <address>
                             <strong>Joshua Pearson</strong><br><br>San Francisco, CA<br>
                           </address>
-                          <a href="mailto:joshua.david.pearson@gmail.com">joshua.david.pearson@gmail.com</a><br>
-                          <a href="http://www.linkedin.com/in/joshuapears0n">My LinkedIn Profile</a>
+                          <a href="mailto:joshua.david.pearson@gmail.com">joshua.david.pearson@gmail.com</a><br><br>
+                          <a href="http://www.linkedin.com/in/joshuapears0n">My LinkedIn Profile</a><br><br>
                           <hr>
                       </article>
                     </div>
                     <!--TODO // IF I EVER ACTUALLY WANT TO HAVE THIS STUFF-->
-                    <div class="col-md-4 col-sm-4">
+                    <div class="col-md-3 col-sm-3">
                       <article>
                         <h3>Useful Links</h3>
                           <ul class="list-unstyled list-links">
@@ -207,7 +208,11 @@
                             <li><a href="">FAQ</a></li>
                             <li><a href="">Terms and Conditions</a></li>
                           </ul>
+                          <hr>
                       </article>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                      <span class="picture"><img src="http://i.imgur.com/bRHcbF5.jpg"/></span>
                     </div>
                   </div>
                 </div>
