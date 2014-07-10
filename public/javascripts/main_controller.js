@@ -10,7 +10,11 @@ MainController.controller("mainCtrl", ["$scope", "$http", "$resource", function(
     var Connection = $resource(url);
 
     $scope.showFooter = function() {
-      $scope.footer = true
+      $scope.footer = true;
+    };
+
+    $scope.hideFooter = function() {
+      $scope.footer = false;
     };
 
     // $scope.doctors = Connection.query();
