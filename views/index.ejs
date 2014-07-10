@@ -97,10 +97,10 @@
                                   <input type="text" class="form-control" ng-show="doctor" id="doctorname" name="doctorOption" ng-model="doctor.text" placeholder="{{doctor.display}} of doctor (optional)">
                                 </div>
                                 <div class="form-group">
-                                  <button class="btn btn-default" ng-click="getDoctors()">Search</button>
+                                  <button class="btn btn-default" ng-click="getDoctors()" ng-hide="alreadySearched">Search</button>
                                 </div><!-- /.form-group -->
                                 <div class="form-group">
-                                  <button type="submit" class="btn btn-default" ng-click="clearMap()" ng-show="alreadySearched">Clear Map</button>
+                                  <button class="btn btn-default" ng-click="clearMap()" ng-show="alreadySearched">Clear Map</button>
                                 </div>
                             </form><!-- /#form-map -->
                         </div><!-- /.search-box.map -->

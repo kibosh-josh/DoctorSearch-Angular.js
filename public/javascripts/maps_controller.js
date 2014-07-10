@@ -53,6 +53,8 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       $scope.map.api = [];
       $scope.map.markers = [];
       $scope.alreadySearched = false;
+      doctorForm.reset();
+      $scope.doctor = false;
     };
 
     $scope.getDoctors = function() {
