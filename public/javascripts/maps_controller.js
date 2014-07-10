@@ -38,6 +38,12 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     { value: "6", display: "Chinese Community Health Plan" }
     ];
 
+    $scope.doctors = [
+      { value: "1", display: "name" },
+      { value: "2", display: "specialty" },
+      { value: "3", display: "medical_group"}
+    ];
+
     var iconBase = "http://maps.google.com/mapfiles/kml/pal4/icon63.png";
 
     $scope.alreadySearched = false;
@@ -51,6 +57,8 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
 
     $scope.getDoctors = function() {
       $scope.alreadySearched = true;
+      console.log($scope.doctor.display);
+      console.log($scope.doctor.text);
       if ($scope.insurance.value === "1") {
         var connection = $resource(apiUrl + "blue_cross.json");
         connection.query().$promise.then(function (result){

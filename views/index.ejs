@@ -74,20 +74,28 @@
                         <div class="show-search-box">
                             <form role="form" id="form-map" class="form-map form-search" name="doctorForm">
                                 <h2>Search Doctors by Insurance</h2>
-                                <div class="form-group">
-                                  <input type="text" class="form-control" id="doctorname" name="doctorName" ng-model="doctor.name" placeholder="name of doctor (optional)">
+<!--                                 <div class="form-group">
+                                  <input type="text" class="form-control" ng-show="doctor" id="doctorname" name="doctorName" ng-model="doctor.name" placeholder="{{doctor.display}} of doctor (optional)">
                                 </div>
                                 <div class="form-group">
                                   <input type="text" class="form-control" id="doctorspecialty" name="doctorSpecialty" ng-model="doctor.specialty" placeholder="doctor specialty (optional)">
                                 </div>
                                 <div class="form-group">
                                   <input type="text" class="form-control" id="doctormedgroup" name="doctorMedGroup" ng-model="doctor.medical_group" placeholder="medical group of doctor (optional)">
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                   <select name="insurance" ng-model="insurance" ng-options="insurance as insurance.display for insurance in insurances">
                                     <option value="" ng-hide="insurance"> Select Insurance (required)</option>
                                   </select>
                                 </div><!-- /.form-group -->
+                                <div class="form-group">
+                                  <select name="doctors" ng-model="doctor" ng-options="doctor as doctor.display for doctor in doctors">
+                                    <option value="" ng-hide="doctor"> Doctor Search Options (optional)</option>
+                                  </select>
+                                </div><!-- /.form-group -->
+                                <div class="form-group">
+                                  <input type="text" class="form-control" ng-show="doctor" id="doctorname" name="doctorOption" ng-model="doctor.text" placeholder="{{doctor.display}} of doctor (optional)">
+                                </div>
                                 <div class="form-group">
                                   <button class="btn btn-default" ng-click="getDoctors()">Search</button>
                                 </div><!-- /.form-group -->
