@@ -67,18 +67,17 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
         return
       };
       $scope.alreadySearched = true;
+      
       if ($scope.doctor === undefined || $scope.doctor.text === undefined) {
-        console.log("options are blank")
         var option = null;
+        console.log(option);
       } else if ($scope.doctor.display !== undefined) {
         var option = "?" + $scope.doctor.display + "=" + $scope.doctor.text;
-        console.log(option)
+        console.log(option);
       };
-      // console.log($scope.doctor.display);
-      // console.log($scope.doctor.text);
-      console.log($scope.insurance.value);
-      if ($scope.insurance.value === "1") {
+      if ($scope.insurance.value === "1" && option == null) {
         var connection = $resource(apiUrl + "blue_cross.json");
+        console.log(connection);
         connection.query().$promise.then(function (result){
           _.each(result, function(item) {
             if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
@@ -98,7 +97,30 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
             $scope.map.api.push(item);
             }
           });
-          console.log($scope.map.api);
+          $scope.map.markers = $scope.map.api;
+        });
+      } else if ($scope.insurance.value === "1" && option !== null) {
+        var connection = $resource(apiUrl + "blue_cross.json" + option);
+        console.log(connection);
+        connection.query().$promise.then(function (result){
+          _.each(result, function(item) {
+            if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
+              item.icon = iconBase;
+              item.url = null;
+              item.showWindow = false;
+              
+              item.onClick = function() {
+                item.showWindow = true;
+                $scope.$apply();
+              };
+
+              item.closeClick = function() {
+              item.showWindow = false;
+              $scope.$apply();
+              };
+            $scope.map.api.push(item);
+            }
+          });
           $scope.map.markers = $scope.map.api;
         });
       }
