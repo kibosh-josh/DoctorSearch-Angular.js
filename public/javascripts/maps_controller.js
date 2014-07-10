@@ -54,14 +54,28 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       $scope.map.markers = [];
       $scope.alreadySearched = false;
       doctorForm.reset();
-      $scope.doctor.text = "";
+      if ($scope.doctor !== undefined) {
+        $scope.doctor.text = "";
+      };
       $scope.doctor = false;
+      $scope.insurance = false;
     };
 
     $scope.getDoctors = function() {
+      if ($scope.insurance === undefined || $scope.insurance.value === undefined) {
+        console.log("try again")
+        return
+      };
       $scope.alreadySearched = true;
-      console.log($scope.doctor.display);
-      console.log($scope.doctor.text);
+      if ($scope.doctor === undefined || $scope.doctor.text === undefined) {
+        console.log("options are blank")
+        var option = null;
+      } else if ($scope.doctor.display !== undefined) {
+        var option = "?" + $scope.doctor.display + "=" + $scope.doctor.text;
+        console.log(option)
+      };
+      // console.log($scope.doctor.display);
+      // console.log($scope.doctor.text);
       console.log($scope.insurance.value);
       if ($scope.insurance.value === "1") {
         var connection = $resource(apiUrl + "blue_cross.json");
