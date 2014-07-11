@@ -16,7 +16,4 @@ MainController.controller("mainCtrl", ["$scope", "$http", "$resource", function(
     $scope.hideFooter = function() {
       $scope.footer = false;
     };
-
-    // $scope.doctors = Connection.query();
-
 }]);
