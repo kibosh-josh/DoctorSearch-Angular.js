@@ -61,6 +61,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       $scope.insurance = false;
     };
 
+    
     $scope.getDoctors = function() {
       if ($scope.insurance === undefined || $scope.insurance.value === undefined) {
         console.log("try again")
@@ -70,14 +71,12 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       
       if ($scope.doctor === undefined || $scope.doctor.text === undefined) {
         var option = null;
-        console.log(option);
       } else if ($scope.doctor.display !== undefined) {
         var option = "?" + $scope.doctor.display + "=" + $scope.doctor.text;
-        console.log(option);
       };
-      if ($scope.insurance.value === "1" && option == null) {
+      
+      if ($scope.insurance.value === "1" && option === null) {
         var connection = $resource(apiUrl + "blue_cross.json");
-        console.log(connection);
         connection.query().$promise.then(function (result){
           _.each(result, function(item) {
             if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
@@ -101,7 +100,6 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
         });
       } else if ($scope.insurance.value === "1" && option !== null) {
         var connection = $resource(apiUrl + "blue_cross.json" + option);
-        console.log(connection);
         connection.query().$promise.then(function (result){
           _.each(result, function(item) {
             if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
@@ -123,137 +121,239 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
           });
           $scope.map.markers = $scope.map.api;
         });
-      }
-      // console.log($scope.doctorForm.doctorName);
-      // console.log($scope.doctorForm.doctorSpecialty);
-      // console.log($scope.doctorForm.doctorMedGroup);
-      // console.log($scope.insurance.value);
-    };
+      } else if ($scope.insurance.value === "2" && option === null) {
+        var connection = $resource(apiUrl + "blue_cross_HMO.json");
+        connection.query().$promise.then(function (result){
+          _.each(result, function(item) {
+            if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
+              item.icon = iconBase;
+              item.url = null;
+              item.showWindow = false;
+              
+              item.onClick = function() {
+                item.showWindow = true;
+                $scope.$apply();
+              };
 
-
-    $scope.getAllDoctors = function() {
-      var Connection = $resource(apiUrl + "doctors.json");
-      Connection.query().$promise.then(function (result){
-        _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
-            item.icon = iconBase;
-            item.url = null;
-            item.showWindow = false;
-            
-            item.onClick = function() {
-              item.showWindow = true;
-              $scope.$apply();
-            };
-            
-            item.closeClick = function() {
-            item.showWindow = false;
-            $scope.$apply();
-            };
-          $scope.map.api.push(item);
-          }
-        });
-        $scope.map.markers = $scope.map.api;
-      });
-    };
-
-    $scope.getBlueShieldDoctors = function() {
-      var Connection = $resource(apiUrl + "blue_shield.json");
-      Connection.query().$promise.then(function (result){
-        _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
-            item.icon = iconBase;
-            item.url = null;
-            item.showWindow = false;
-            
-            item.onClick = function() {
-              item.showWindow = true;
-              $scope.$apply();
-            };
-            
-            item.closeClick = function() {
-            item.showWindow = false;
-            $scope.$apply();
-            };
-          $scope.map.api.push(item);
-          }
-        });
-        $scope.map.markers = $scope.map.api;
-      });
-    };
-    
-    $scope.getBlueCrossDoctors = function() {
-      var Connection = $resource(apiUrl + "blue_cross.json");
-      Connection.query().$promise.then(function (result){
-        _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
-            item.icon = iconBase;
-            item.url = null;
-            item.showWindow = false;
-            
-            item.onClick = function() {
-              item.showWindow = true;
-              $scope.$apply();
-            };
-            
-            item.closeClick = function() {
-            item.showWindow = false;
-            $scope.$apply();
-            };
-          $scope.map.api.push(item);
-          }
-        });
-        $scope.map.markers = $scope.map.api;
-      });
-    };
-    $scope.getCchpDoctors = function() {
-      var Connection = $resource(apiUrl + "cchp.json");
-      Connection.query().$promise.then(function (result){
-        _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
-            item.icon = iconBase;
-            item.url = null;
-            item.showWindow = false;
-            
-            item.onClick = function() {
-              item.showWindow = true;
-              $scope.$apply();
-            };
-            
-            item.closeClick = function() {
+              item.closeClick = function() {
               item.showWindow = false;
               $scope.$apply();
-            };
-          console.log(item);
-          $scope.map.api.push(item);
-          }
-        });
-        $scope.map.markers = $scope.map.api;
-      });
-    };
+              };
+            $scope.map.api.push(item);
+            }
+          });
+          $scope.map.markers = $scope.map.api;
+        });    
+      } else if ($scope.insurance.value === "2" && option !== null) {
+          var connection = $resource(apiUrl + "blue_cross_HMO.json" + option);
+          connection.query().$promise.then(function (result){
+            _.each(result, function(item) {
+              if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
+                item.icon = iconBase;
+                item.url = null;
+                item.showWindow = false;
+                
+                item.onClick = function() {
+                  item.showWindow = true;
+                  $scope.$apply();
+                };
 
-    $scope.getKaiserDoctors = function() {
-      var Connection = $resource(apiUrl + "kaiser.json");
-      Connection.query().$promise.then(function (result){
-        _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
-            item.icon = iconBase;
-            item.url = null;
-            item.showWindow = false;
-            
-            item.onClick = function() {
-              item.showWindow = true;
-              $scope.$apply();
-            };
-            
-            item.closeClick = function() {
-            item.showWindow = false;
-            $scope.$apply();
-            };
-          $scope.map.api.push(item);
-          }
+                item.closeClick = function() {
+                item.showWindow = false;
+                $scope.$apply();
+                };
+              $scope.map.api.push(item);
+              }
+            });
+            $scope.map.markers = $scope.map.api;
+        });      
+      } else if ($scope.insurance.value === "3" && option === null) {
+          var connection = $resource(apiUrl + "kaiser.json");
+          connection.query().$promise.then(function (result){
+            _.each(result, function(item) {
+              if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
+                item.icon = iconBase;
+                item.url = null;
+                item.showWindow = false;
+                
+                item.onClick = function() {
+                  item.showWindow = true;
+                  $scope.$apply();
+                };
+
+                item.closeClick = function() {
+                item.showWindow = false;
+                $scope.$apply();
+                };
+              $scope.map.api.push(item);
+              }
+            });
+            $scope.map.markers = $scope.map.api;
+          });
+      } else if ($scope.insurance.value === "3" && option !== null) {
+          var connection = $resource(apiUrl + "kaiser.json" + option);
+          connection.query().$promise.then(function (result){
+            _.each(result, function(item) {
+              if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
+                item.icon = iconBase;
+                item.url = null;
+                item.showWindow = false;
+                
+                item.onClick = function() {
+                  item.showWindow = true;
+                  $scope.$apply();
+                };
+
+                item.closeClick = function() {
+                item.showWindow = false;
+                $scope.$apply();
+                };
+              $scope.map.api.push(item);
+              }
+            });
+            $scope.map.markers = $scope.map.api;
+        }); 
+      } else if ($scope.insurance.value === "4" && option === null) {
+          var connection = $resource(apiUrl + "blue_shield.json");
+          connection.query().$promise.then(function (result) {
+            _.each(result, function(item) {
+              if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
+                item.icon = iconBase;
+                item.url = null;
+                item.showWindow = false;
+                
+                item.onClick = function() {
+                  item.showWindow = true;
+                  $scope.$apply();
+                };
+
+                item.closeClick = function() {
+                item.showWindow = false;
+                $scope.$apply();
+                };
+              $scope.map.api.push(item);
+              }
+            });
+            $scope.map.markers = $scope.map.api;
         });
-        $scope.map.markers = $scope.map.api;
-      });
+      } else if ($scope.insurance.value === "4" && option !== null) {
+          var connection = $resource(apiUrl + "blue_shield.json" + option);
+          connection.query().$promise.then(function (result) {
+            _.each(result, function(item) {
+              if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
+                item.icon = iconBase;
+                item.url = null;
+                item.showWindow = false;
+                
+                item.onClick = function() {
+                  item.showWindow = true;
+                  $scope.$apply();
+                };
+
+                item.closeClick = function() {
+                item.showWindow = false;
+                $scope.$apply();
+                };
+              $scope.map.api.push(item);
+              }
+            });
+            $scope.map.markers = $scope.map.api;
+        });
+      } else if ($scope.insurance.value === "5" && option === null) {
+          var connection = $resource(apiUrl + "blue_shield_EPO.json");
+          connection.query().$promise.then(function (result) {
+            _.each(result, function(item) {
+              if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
+                item.icon = iconBase;
+                item.url = null;
+                item.showWindow = false;
+                
+                item.onClick = function() {
+                  item.showWindow = true;
+                  $scope.$apply();
+                };
+
+                item.closeClick = function() {
+                item.showWindow = false;
+                $scope.$apply();
+                };
+              $scope.map.api.push(item);
+              }
+            });
+            $scope.map.markers = $scope.map.api;
+        });
+      } else if ($scope.insurance.value === "5" && option !== null) {
+          var connection = $resource(apiUrl + "blue_shield_EPO.json" + option);
+          connection.query().$promise.then(function (result) {
+            _.each(result, function(item) {
+              if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
+                item.icon = iconBase;
+                item.url = null;
+                item.showWindow = false;
+                
+                item.onClick = function() {
+                  item.showWindow = true;
+                  $scope.$apply();
+                };
+
+                item.closeClick = function() {
+                item.showWindow = false;
+                $scope.$apply();
+                };
+              $scope.map.api.push(item);
+              }
+            });
+            $scope.map.markers = $scope.map.api;
+        });
+      } else if ($scope.insurance.value === "6" && option === null) {
+          var connection = $resource(apiUrl + "cchp.json");
+          connection.query().$promise.then(function (result) {
+            _.each(result, function(item) {
+              if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
+                item.icon = iconBase;
+                item.url = null;
+                item.showWindow = false;
+                
+                item.onClick = function() {
+                  item.showWindow = true;
+                  $scope.$apply();
+                };
+
+                item.closeClick = function() {
+                item.showWindow = false;
+                $scope.$apply();
+                };
+              $scope.map.api.push(item);
+              }
+            });
+            $scope.map.markers = $scope.map.api;
+        });
+      } else if ($scope.insurance.value === "6" && option !== null) {
+          var connection = $resource(apiUrl + "cchp.json" + option);
+          connection.query().$promise.then(function (result) {
+            _.each(result, function(item) {
+              if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
+                item.icon = iconBase;
+                item.url = null;
+                item.showWindow = false;
+                
+                item.onClick = function() {
+                  item.showWindow = true;
+                  $scope.$apply();
+                };
+
+                item.closeClick = function() {
+                item.showWindow = false;
+                $scope.$apply();
+                };
+              $scope.map.api.push(item);
+              }
+            });
+            $scope.map.markers = $scope.map.api;
+        });
+      } else {
+
+      }
     };
 
     $scope.markersEvents = {
