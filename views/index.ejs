@@ -25,7 +25,7 @@
             </div>
             <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
               <ul class="nav navbar-nav">
-                <li class="active has-child"><a href="#">My Links</a>
+                <li class="active has-child"><a href="">My Links</a>
                   <ul class="child-navigation">
                     <li><a href="https://github.com/Joshua-Pearson">My Github</a></li>
                     <li><a href="http://www.linkedin.com/in/joshuapears0n">My LinkedIn</a></li>
@@ -48,19 +48,16 @@
       </div>
     <div ng-controller="mapCtrl">
       <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" events="map.events" control="map.control" styles="map.styles" options="{scrollwheel: false}">
-        <markers models="map.markers" class="pins" coords="'self'" click="'onClick'" events="markersEvents" icon="'icon'">
-          <windows show="'showWindow'" class="infoWindow" closeClick="'closeClick'" options="map.windowOptions">
-            <div id="popup" style="padding:5px">
+        <markers models="map.markers" class="marker-style" coords="'self'" click="'onClick'" events="markersEvents" icon="'icon'">
+          <windows show="'showWindow'" class="infobox-wrapper" closeClick="'closeClick'" options="map.windowOptions">
+            <div id="popup" style="padding:5px" class="infobox-inner">
               <h4 ng-non-bindable>{{name}}</h4>
-              <p>
-              {{icon}}
-              </p>
-              <p>
+              <img ng-non-bindable src="{{stars}}"/><br>
               <strong>Address</strong><br>
-              <strong><span ng-non-bindable>{{address}}</span></strong>
+              <span ng-non-bindable>{{address}}</span>
               </p>
               <p>
-              <strong><a ng-non-bindable href="{{url}}">Go to The Yelp Site </a><strong>
+              <strong><a ng-non-bindable href="{{url}}" target="_blank">Go to The Yelp Site </a><strong>
               </p>
             </div>
           </windows>
@@ -72,6 +69,7 @@
                 <div class="row">
                     <div class="col-md-4 col-sm-4">
                         <div class="search-box map show-search-box">
+                          <h3 id="error" class="my-show-hide-animation" ng-show="tryAgain">You must select an insurance to search</h3>
                             <form role="form" id="form-map" class="form-map form-search" name="doctorForm">
                                 <h2>Search Doctors by Insurance</h2>
                                 <div class="form-group">
@@ -148,23 +146,22 @@
               </div><!-- /.row -->
             </div><!-- /.container -->
           </section><!-- /#our-services -->
-          <section id="advertising" class="block" ng-hide="footer">
+          <section id="aboutme" class="my-show-hide-animation" ng-hide="footer">
             <div class="container">
               <a href="">
                 <div class="banner">
                   <div class="wrapper">
                     <span class="title">About Me</span>
-                    <span class="submit" ng-click="showFooter()" ng-hide="footer">Click to see more</span>
-                    <span class="picture" ng-show="footer"><img src="http://i.imgur.com/bRHcbF5.jpg"/></span>
+                    <span class="submit" ng-click="showFooter()">Click to see more</span>
                   </div>
                 </div><!-- /.banner-->
               </a>
             </div>
           </section>
 
-          <footer id="page-footer" ng-show="footer">
+          <footer id="page-footer">
             <div class="inner">
-              <section id="footer-main">
+              <section id="footer-main" class="my-show-hide-animation" ng-show="footer">
                 <div class="container">
                   <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-4">
@@ -214,7 +211,7 @@
               <section id="footer-copyright">
                 <div class="container">
                   <span>Copyright © 2014. All Rights Reserved.</span>
-                  <span class="pull-right"><a href="#page-top" ng-click="hideFooter()" class="roll">Go to top</a></span>
+                  <span class="pull-right"><a href="#page-top" class="roll">Go to top</a></span>
                 </div>
               </section>
             </div><!-- /.inner -->

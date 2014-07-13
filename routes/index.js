@@ -39,16 +39,16 @@ router.get('/phone_lookup', function(request, response) {
   yelpv1_phone(q, function(data) {
     response.setHeader('Content-Type', 'application/json');
     response.end(JSON.stringify(data));
-  });
- 
+  }); 
 });
 
 router.get('/lookup', function(request, response) {
 
   var q = request.query.q;
   var l = request.query.l;
+  var limit = request.query.limit
 
-  yelp.search({term: q, location: l}, function(error, data) {
+  yelp.search({term: q, location: l, limit: limit}, function(error, data) {
     response.setHeader('Content-Type', 'application/json');
     response.end(JSON.stringify(data));
   });

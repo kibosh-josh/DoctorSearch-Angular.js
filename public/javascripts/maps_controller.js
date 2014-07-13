@@ -47,6 +47,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     var iconBase = "http://maps.google.com/mapfiles/kml/pal4/icon63.png";
 
     $scope.alreadySearched = false;
+    $scope.tryAgain = false;
 
 
     $scope.clearMap = function() {
@@ -61,28 +62,32 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       $scope.insurance = false;
     };
 
-    
     $scope.getDoctors = function() {
+      var option;
+      var connection;
       if ($scope.insurance === undefined || $scope.insurance.value === undefined) {
-        console.log("try again")
-        return
-      };
+        console.log("try again");
+        $scope.tryAgain = true;
+        return;
+      }
       $scope.alreadySearched = true;
+      $scope.tryAgain = false;
       
       if ($scope.doctor === undefined || $scope.doctor.text === undefined) {
-        var option = null;
+        option = null;
       } else if ($scope.doctor.display !== undefined) {
-        var option = "?" + $scope.doctor.display + "=" + $scope.doctor.text;
-      };
-      
+        option = "?" + $scope.doctor.display.toString() + "=" + $scope.doctor.text.toString();
+      }
+
       if ($scope.insurance.value === "1" && option === null) {
-        var connection = $resource(apiUrl + "blue_cross.json");
+        connection = $resource(apiUrl + "blue_cross.json");
         connection.query().$promise.then(function (result){
           _.each(result, function(item) {
-            if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
+            if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 30) {
               item.icon = iconBase;
               item.url = null;
               item.showWindow = false;
+              item.stars = null;
               
               item.onClick = function() {
                 item.showWindow = true;
@@ -93,20 +98,27 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
               item.showWindow = false;
               $scope.$apply();
               };
-            $scope.map.api.push(item);
+              if ($scope.map.api.indexOf(item.name) == -1) {
+                console.log("ele doesn't exist");
+                $scope.map.api.push(item);
+              } else {
+                console.log("ele exists");
+              }
+            // $scope.map.api.push(item);
             }
           });
           $scope.map.markers = $scope.map.api;
         });
       } else if ($scope.insurance.value === "1" && option !== null) {
-        var connection = $resource(apiUrl + "blue_cross.json" + option);
+        connection = $resource(apiUrl + "blue_cross.json" + option);
         connection.query().$promise.then(function (result){
           _.each(result, function(item) {
-            if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
+            if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99) {
               item.icon = iconBase;
               item.url = null;
               item.showWindow = false;
-              
+              item.stars = null;
+
               item.onClick = function() {
                 item.showWindow = true;
                 $scope.$apply();
@@ -116,43 +128,26 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
               item.showWindow = false;
               $scope.$apply();
               };
-            $scope.map.api.push(item);
+              if ($scope.map.api.indexOf(item.name) == -1) {
+                console.log("ele doesn't exist");
+                $scope.map.api.push(item);
+              } else {
+                console.log("ele exists");
+              }
             }
           });
           $scope.map.markers = $scope.map.api;
         });
       } else if ($scope.insurance.value === "2" && option === null) {
-        var connection = $resource(apiUrl + "blue_cross_HMO.json");
-        connection.query().$promise.then(function (result){
-          _.each(result, function(item) {
-            if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
-              item.icon = iconBase;
-              item.url = null;
-              item.showWindow = false;
-              
-              item.onClick = function() {
-                item.showWindow = true;
-                $scope.$apply();
-              };
-
-              item.closeClick = function() {
-              item.showWindow = false;
-              $scope.$apply();
-              };
-            $scope.map.api.push(item);
-            }
-          });
-          $scope.map.markers = $scope.map.api;
-        });    
-      } else if ($scope.insurance.value === "2" && option !== null) {
-          var connection = $resource(apiUrl + "blue_cross_HMO.json" + option);
+          connection = $resource(apiUrl + "blue_cross_HMO.json");
           connection.query().$promise.then(function (result){
             _.each(result, function(item) {
-              if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
+              if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 40){
                 item.icon = iconBase;
                 item.url = null;
                 item.showWindow = false;
-                
+                item.stars = null;
+
                 item.onClick = function() {
                   item.showWindow = true;
                   $scope.$apply();
@@ -161,6 +156,32 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
                 item.closeClick = function() {
                 item.showWindow = false;
                 $scope.$apply();
+                console.log(item)
+                };
+              $scope.map.api.push(item);
+              }
+            });
+            $scope.map.markers = $scope.map.api;
+        }); 
+      } else if ($scope.insurance.value === "2" && option !== null) {
+          connection = $resource(apiUrl + "blue_cross_HMO.json" + option);
+          connection.query().$promise.then(function (result){
+            _.each(result, function(item) {
+              if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 40){
+                item.icon = iconBase;
+                item.url = null;
+                item.showWindow = false;
+                item.stars = null;
+
+                item.onClick = function() {
+                  item.showWindow = true;
+                  $scope.$apply();
+                };
+
+                item.closeClick = function() {
+                item.showWindow = false;
+                $scope.$apply();
+                console.log(item)
                 };
               $scope.map.api.push(item);
               }
@@ -168,14 +189,15 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
             $scope.map.markers = $scope.map.api;
         });      
       } else if ($scope.insurance.value === "3" && option === null) {
-          var connection = $resource(apiUrl + "kaiser.json");
+          connection = $resource(apiUrl + "kaiser.json");
           connection.query().$promise.then(function (result){
             _.each(result, function(item) {
               if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
                 item.icon = iconBase;
                 item.url = null;
                 item.showWindow = false;
-                
+                item.stars = null;
+
                 item.onClick = function() {
                   item.showWindow = true;
                   $scope.$apply();
@@ -191,14 +213,15 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
             $scope.map.markers = $scope.map.api;
           });
       } else if ($scope.insurance.value === "3" && option !== null) {
-          var connection = $resource(apiUrl + "kaiser.json" + option);
+          connection = $resource(apiUrl + "kaiser.json" + option);
           connection.query().$promise.then(function (result){
             _.each(result, function(item) {
               if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
                 item.icon = iconBase;
                 item.url = null;
                 item.showWindow = false;
-                
+                item.stars = null;
+
                 item.onClick = function() {
                   item.showWindow = true;
                   $scope.$apply();
@@ -214,7 +237,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
             $scope.map.markers = $scope.map.api;
         }); 
       } else if ($scope.insurance.value === "4" && option === null) {
-          var connection = $resource(apiUrl + "blue_shield.json");
+          connection = $resource(apiUrl + "blue_shield.json");
           connection.query().$promise.then(function (result) {
             _.each(result, function(item) {
               if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
@@ -237,7 +260,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
             $scope.map.markers = $scope.map.api;
         });
       } else if ($scope.insurance.value === "4" && option !== null) {
-          var connection = $resource(apiUrl + "blue_shield.json" + option);
+          connection = $resource(apiUrl + "blue_shield.json" + option);
           connection.query().$promise.then(function (result) {
             _.each(result, function(item) {
               if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
@@ -260,7 +283,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
             $scope.map.markers = $scope.map.api;
         });
       } else if ($scope.insurance.value === "5" && option === null) {
-          var connection = $resource(apiUrl + "blue_shield_EPO.json");
+          connection = $resource(apiUrl + "blue_shield_EPO.json");
           connection.query().$promise.then(function (result) {
             _.each(result, function(item) {
               if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
@@ -283,7 +306,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
             $scope.map.markers = $scope.map.api;
         });
       } else if ($scope.insurance.value === "5" && option !== null) {
-          var connection = $resource(apiUrl + "blue_shield_EPO.json" + option);
+          connection = $resource(apiUrl + "blue_shield_EPO.json" + option);
           connection.query().$promise.then(function (result) {
             _.each(result, function(item) {
               if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
@@ -306,7 +329,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
             $scope.map.markers = $scope.map.api;
         });
       } else if ($scope.insurance.value === "6" && option === null) {
-          var connection = $resource(apiUrl + "cchp.json");
+          connection = $resource(apiUrl + "cchp.json");
           connection.query().$promise.then(function (result) {
             _.each(result, function(item) {
               if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
@@ -329,7 +352,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
             $scope.map.markers = $scope.map.api;
         });
       } else if ($scope.insurance.value === "6" && option !== null) {
-          var connection = $resource(apiUrl + "cchp.json" + option);
+          connection = $resource(apiUrl + "cchp.json" + option);
           connection.query().$promise.then(function (result) {
             _.each(result, function(item) {
               if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
@@ -359,30 +382,40 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     $scope.markersEvents = {
       click: function (gMarker, eventName, marker) {
         marker.onClick();
-        if (marker.phone !== null) {
-          var phone = marker.phone.replace(/[^\w\s]/gi, '');          
-        };
-        var name = marker.name.replace(/ /g, '+')
-        var url = "/lookup?q=" + name + "&l=" + marker.zip_code
+        // if (marker.phone !== null) {
+        //   var phone = marker.phone.replace(/[^\w\s]/gi, '');          
+        // };
+        var urlFriendlyName = marker.name.replace(/ /g, '+')
+        var urlFriendlyAddress = marker.address.replace(/ /g, '+')
+        var url = "/lookup?q=" + urlFriendlyName + "&l=" + marker.zip_code + "&limit=2"
+        console.log(url)
         var service = $resource(url);
+        marker.stars = "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/5ef3eb3cb162/ico/stars/v1/stars_3_half.png"
+        marker.url = "http://www.google.com/#q=" + urlFriendlyName
+        marker.isYelped = false;
+        console.log(marker.url);
+        console.log(marker);
 
-        service.get().$promise.then(function (data){
-          if (data.businesses.length > 0){
-            businessArray = data.businesses;
-            _.each(businessArray, function (object){
-              var markerArr = marker.name.split(" ")
-              var namearr = object.name.split(" ")
-              if (markerArr[0] === namearr[1] || markerArr[1] === namearr[0]) {
-                marker.icon = object.rating_img_url;
-                marker.url = object.url;
-                return marker
+        service.get().$promise.then(function (data) {
+          if (data.businesses) {
+            resultArray = data.businesses;
+            _.each(resultArray, function (business) {
+              console.log(business)
+              var markerName = marker.name.replace(/,/g, '').toLowerCase().split(" ")
+              var businessName = business.name.replace(/,/g, '').toLowerCase().split(" ")
+              if (_.intersection(markerName, businessName).length > 2) {
+                console.log("match")
+                marker.stars = business.rating_img_url;
+                console.log(marker.stars)
+                marker.url = business.url;
+                console.log(marker.url)
+                marker.isYelped = true;
+                console.log(marker);
               }
             });
           } else {
-            marker.icon = "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/5ef3eb3cb162/ico/stars/v1/stars_3_half.png"
-            marker.url = "http://www.google.com/#q=" + name
+            console.log("no results")
           }
-          console.log(marker.url);
         });
       },
       mouseover: function(gMarker, eventName, marker) {
@@ -397,7 +430,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       //     if (data.businesses.length > 0){
       //       businessArray = data.businesses;
       //       _.each(businessArray, function (object){
-      //         var markerArr = marker.name.split(" ")
+      //         var markerName = marker.name.split(" ")
       //         var namearr = object.name.split(" ")
       //         if (markerArr[0] === namearr[1] || markerArr[1] === namearr[0]) {
       //           marker.icon = object.rating_img_url;

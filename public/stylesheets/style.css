@@ -264,8 +264,7 @@ ul.list-links li a:hover {
 }
 
 #search-box-doctor {
-  font-size: 30px;
-  color: red;
+  font-size: 20px;
 }
 .background-image {
   left: 0;
@@ -2955,244 +2954,13 @@ ul.list-links li a:hover {
   font-weight: bold;
 }
 
-.testimonials-carousel.small .testimonial {
-  padding: 20px 0;
-}
-.testimonials-carousel.small .testimonial figure .image {
-  background-color: #5a5a5a;
-  height: 70px;
-  position: relative;
-  overflow: hidden;
-  width: 60px;
-}
-.testimonials-carousel.small .testimonial figure .image:after {
-  bottom: 0px;
-  content: "";
-  height: 0px;
-  border-style: solid;
-  border-width: 10px 0 0 10px;
-  border-color: transparent transparent transparent #fff;
-  position: absolute;
-  right: 0;
-  width: 0px;
-}
-.testimonials-carousel.small .testimonial figure .image:before {
-  background-color: #fff;
-  bottom: 0;
-  content: "";
-  height: 10px;
-  left: 0;
-  width: calc(100% - 10px);
-  position: absolute;
-}
-.testimonials-carousel.small .testimonial figure .image img {
-  height: 100%;
-}
-.testimonials-carousel.small .testimonial .cite p {
-  font-size: 14px;
-}
-
 .text-banner {
   padding: 40px 0;
 }
-
-.timeline-item {
-  display: block;
-  margin-bottom: 60px;
-}
-.timeline-item:last-child:after {
-  display: none !important;
-}
-.timeline-item:hover .circle .date {
-  left: 30px;
-}
-.timeline-item:hover .wrapper {
-  background-color: #f3f3f3;
-}
-.timeline-item:hover .wrapper .social .btn {
-  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
-  opacity: 1;
-}
-.timeline-item:after {
-  background-color: #f3f3f3;
-  content: "";
-  width: 2px;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 21px;
-  z-index: -1;
-}
-.timeline-item .circle {
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  background-color: #fff;
-  border: 2px solid #f3f3f3;
-  height: 43px;
-  position: relative;
-  width: 100%;
-}
-.timeline-item .circle .dot {
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  -moz-transition: 0.4s;
-  -o-transition: 0.4s;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  background-color: #1396e2;
-  height: 7px;
-  width: 7px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 1px;
-  margin: auto;
-}
-.timeline-item .circle .date {
-  -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-  -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-  -moz-transition: 0.4s;
-  -o-transition: 0.4s;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  background-color: #1396e2;
-  color: #fff;
-  left: 40px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  height: 29px;
-  line-height: 29px;
-  padding-left: 7px;
-  padding-right: 7px;
-  z-index: 2;
-}
-.timeline-item .circle .date:after {
-  width: 0;
-  height: 0;
-  content: "";
-  border-style: solid;
-  border-width: 4px 4px 4px 4px;
-  border-color: transparent #1396e2 transparent transparent;
-  position: absolute;
-  top: 0;
-  left: -8px;
-  bottom: 0;
-  margin: auto;
-}
-.timeline-item .wrapper {
-  -moz-transition: 0.4s;
-  -o-transition: 0.4s;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  background-color: transparent;
-  border: 2px solid #f3f3f3;
-  padding: 20px 20px 20px 80px;
-  margin-top: -8px;
-}
-.timeline-item .wrapper img {
-  margin-bottom: 30px;
-  width: 100%;
-}
-.timeline-item .wrapper h3 {
-  margin-top: 0;
-}
-.timeline-item .wrapper .social {
-  margin-top: 20px;
-}
-.timeline-item .wrapper .social .btn {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
-  opacity: 0.3;
-  padding: 3px 0;
-  width: 25px;
-}
-
-.thumbnail {
-  height: 100px;
-}
-
 .tool-tip {
   padding: 5px;
   cursor: pointer;
   color: #073855;
-}
-
-/****
-  U
-****/
-.universal-button {
-  -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-  -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-  background-color: #f3f3f3;
-  color: #2a2a2a;
-  display: block;
-  margin-bottom: 10px;
-  padding: 20px;
-  position: relative;
-  top: 0;
-}
-.universal-button:hover {
-  background-color: #eeeeee;
-  color: #2a2a2a;
-}
-.universal-button:active {
-  -moz-box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
-  -webkit-box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
-  top: 1px;
-}
-.universal-button figure, .universal-button span {
-  vertical-align: middle;
-  display: table-cell;
-}
-.universal-button figure {
-  color: #1396e2;
-  font-size: 28px;
-  width: 40px;
-}
-.universal-button .arrow {
-  bottom: 0;
-  color: #1396e2;
-  height: 15px;
-  margin: auto;
-  position: absolute;
-  right: 10px;
-  top: 0;
-  width: 10px;
-}
-
-#map {
-  width: 100%;
-  height: 700px;
-}
-
-#contact-map {
-  height: 300px;
-  width: 100%;
-}
-
-.marker-style {
-  border: 3px solid #1396e2;
-  text-align: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  margin-left: -17px !important;
-  margin-top: -46px !important;
-}
-.marker-style img {
-  position: absolute !important;
-  top: -1px !important;
-  bottom: 0px !important;
-  right: 0px;
-  left: 0px;
-  margin: auto !important;
 }
 
 .cluster > div {
@@ -3370,7 +3138,7 @@ ul.list-links li a:hover {
   margin-bottom: 10px;
 }
 
-input[type="text"], input[type="email"], input[type="search"], input[type="password"], input[type="number"], input[type="tel"], textarea.form-control {
+input[type="text"], textarea.form-control {
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -5283,6 +5051,11 @@ body, html {
   .search-box-wrapper h2 {
     color: #fff;
   }
+
+  .form-map {
+    background-color: transparent !important;
+    padding: 0 !important;
+  }
 .search-box .form-map input[type="text"]:hover, .search-box .form-map input[type="email"]:hover, .search-box .form-map input[type="search"]:hover, .search-box .form-map input[type="password"]:hover, .search-box .form-map input[type="number"]:hover, .search-box .form-map textarea:hover, .search-box .form-map select:hover, .search-box .form-map .selectpicker:hover, .search-box .form-map .price-range:hover {
   background-color: #062f47;
 }
@@ -5413,9 +5186,25 @@ body, html {
   page-break-after: auto;
   margin: 0;
 }
+
 #search-box-doctor {
   font-size: 18px;
 }
 #form-map > div > select {
   font-size: 18px;
 }
+
+.my-show-hide-animation.ng-hide-add,
+.my-show-hide-animation.ng-hide-remove {
+  -webkit-transition:0.5s linear all;
+  transition:0.5s linear all;
+  display:block!important;
+  opacity:1;
+}
+.my-show-hide-animation.ng-hide {
+  opacity:0;
+}
+#error {
+  color: red;
+}
+
