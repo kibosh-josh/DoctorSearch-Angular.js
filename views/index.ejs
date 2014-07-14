@@ -48,7 +48,7 @@
       </div>
     <div ng-controller="mapCtrl">
       <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" events="map.events" control="map.control" styles="map.styles" options="{scrollwheel: false}">
-        <markers models="map.markers" class="marker-style" coords="'self'" click="'onClick'" events="markersEvents" icon="'icon'">
+        <markers models="map.markers" class="marker-style" coords="'self'" click="'onClick'" events="markersEvents">
         </markers>
         <window show="map.currentMarker.showWindow" class="infobox-wrapper" closeClick="map.currentMarker.closeClick" coords="map.currentMarker" options="map.windowOptions">
           <div id="popup" style="padding:5px" class="infobox-inner">
@@ -77,11 +77,10 @@
         <div class="search-box-inner">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4 col-sm-4">
+                    <div class="col-md-4 col-sm-4 col-xs-6">
                         <div class="search-box map show-search-box">
-                          <h3 id="error" class="my-show-hide-animation" ng-show="tryAgain">You must select an insurance to search</h3>
-                          <h2 id="results" class="my-show-hide-animation" ng-show="map.markers.length > 1">Your search returned {{map.markers.length + 1}} results.</h2>
-                            <form role="form" id="form-map" class="form-map form-search" name="doctorForm">
+<!--                           <h3 id="error" class="my-show-hide-animation" ng-show="tryAgain">You must select an insurance to search</h3>
+ -->                            <form role="form" id="form-map" class="form-map form-search" name="doctorForm">
                                 <h2>Search Doctors by Insurance</h2>
                                 <div class="form-group">
                                   <select name="insurance" ng-hide="alreadySearched" ng-model="insurance" ng-options="insurance as insurance.display for insurance in insurances">
@@ -108,8 +107,15 @@
                                   <button class="btn btn-default" ng-click="clearMap()" ng-show="alreadySearched">Clear Map -- New Search</button>
                                 </div>
                             </form><!-- /#form-map -->
+                            <h2 id="results" class="my-show-hide-animation" ng-show="alreadySearched"><em>Showing </em><strong>{{limit}}</strong><em> of  </em><strong> {{map.markers.length}} </strong><em> results.</em></h2>
+                            <h2 id="error" class="my-show-hide-animation" ng-show="tryAgain"><strong><em>Please select an insurance to search</em></strong></h2>
+                            <ul>
+                              <li ng-repeat="m in map.markers | limitTo:limit"><a ng-click="m.onClick()">{{m.name}}</a></li>
+                            </ul>
+                            <pagination total-items="totalItems" items-per-page="limit" ng-model="currentPage" ng-show="alreadySearched" ng-change="pageChanged()"></pagination>
+                            <!--<pagination boundary-links="true" total-items="totalItems" items-per-page="limit" ng-model="currentPage" class="pagination-md" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>-->
                         </div><!-- /.search-box.map -->
-                    </div><!-- /.col-md-3 -->
+                    </div><!-- /.col-md-4 -->
                 </div><!-- /.row -->
             </div><!-- /.container -->
         </div><!-- /.search-box-inner -->

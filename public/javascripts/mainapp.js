@@ -1,4 +1,4 @@
-var DoctorApp = angular.module("DoctorApp", ["google-maps", "ngResource", "MainController", "MapsController", "ngAnimate"]);
+var DoctorApp = angular.module("DoctorApp", ["google-maps", "ngResource", "MainController", "MapsController", "ngAnimate", "ui.bootstrap"]);
 
 DoctorApp.config(['$httpProvider', function($httpProvider) {
   $httpProvider.defaults.useXDomain = true;

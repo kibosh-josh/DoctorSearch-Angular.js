@@ -5196,8 +5196,8 @@ body, html {
 
 .my-show-hide-animation.ng-hide-add,
 .my-show-hide-animation.ng-hide-remove {
-  -webkit-transition:0.5s linear all;
-  transition:0.5s linear all;
+  -webkit-transition:0.3s linear all;
+  transition:0.3s linear all;
   display:block!important;
   opacity:1;
 }
@@ -5206,5 +5206,6 @@ body, html {
 }
 #error {
   color: red;
+  font-size: 20px;
 }
 
