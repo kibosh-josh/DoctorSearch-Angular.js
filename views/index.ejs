@@ -62,8 +62,11 @@
               <strong>Phone</strong><br>
               <span>{{map.currentMarker.phone}}</span><br><br>
             </p>
+            <p ng-if="map.currentMarker.specialty !== null">
+              <strong>Specialty</strong><br>
+              <span>{{map.currentMarker.specialty}}</span><br><br>
+            </p>
             <p>
-              {{map.currentMarker.url.search('google')}}
               <strong><a ng-show="map.currentMarker.url.search('yelp') > -1" ng-href="{{map.currentMarker.url}}" target="_blank">Go to The Yelp Site </a><strong>
               <strong><a ng-hide="map.currentMarker.url.search('yelp') > -1" ng-href="{{map.currentMarker.url}}" target="_blank">No Yelp Reviews, Google Results</a><strong>
             </p>
@@ -77,6 +80,7 @@
                     <div class="col-md-4 col-sm-4">
                         <div class="search-box map show-search-box">
                           <h3 id="error" class="my-show-hide-animation" ng-show="tryAgain">You must select an insurance to search</h3>
+                          <h2 id="results" class="my-show-hide-animation" ng-show="map.markers.length > 1">Your search returned {{map.markers.length + 1}} results.</h2>
                             <form role="form" id="form-map" class="form-map form-search" name="doctorForm">
                                 <h2>Search Doctors by Insurance</h2>
                                 <div class="form-group">
@@ -89,8 +93,13 @@
                                     <option value="" ng-hide="doctor"> Doctor Search Options (optional)</option>
                                   </select>
                                 </div><!-- /.form-group -->
-                                <div class="form-group" ng-hide="alreadySearched">
+                                <div class="form-group" ng-hide="alreadySearched || doctor.value == 2">
                                   <input type="text" class="form-control" class="form-control" id="search-box-doctor" ng-show="doctor" name="doctorOption" ng-model="doctor.text" placeholder="{{doctor.display}} of doctor (optional)">
+                                </div>
+                                <div class="form-group" ng-show="doctor.value == 2">
+                                  <select name="specialtyOption" ng-hide="alreadySearched" ng-model="specialtyOption" ng-options="specialtyOption as specialtyOption.display for specialtyOption in specialtyOptions">
+                                    <option value="" ng-hide="specialtyOption">Specialties</option>
+                                  </select>
                                 </div>
                                 <div class="form-group">
                                   <button class="btn btn-default" ng-click="getDoctors()" ng-hide="alreadySearched">Search</button>

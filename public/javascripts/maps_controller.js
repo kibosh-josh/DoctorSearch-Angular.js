@@ -45,7 +45,35 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     ];
 
     $scope.specialtyOptions = [
-      {}
+      { url: "acupuncture", display: "Acupuncture" },
+      { url: "adult+medicine", display: "Adult Medicine" },
+      { url: "allergy", display: "Allergy" },
+      { url: "anesthesiology", display: "Anesthesiology" },
+      { url: "audiologist", display: "Audiologist" },
+      { url: "cardio", display: "Cardiology" },
+      { url: "chiropractor", display: "Chiropractic" },
+      { url: "dermatology", display: "Dermatology" },
+      { url: "radiology", display: "Radiology" },
+      { url: "emergency+medicine", display: "Emergency Medicine" },
+      { url: "family+practice", display: "Family Practice" },
+      { url: "gastroenterology", display: "Gastroenterology" },
+      { url: "pediatrics", display: "Pediatrics" },
+      { url: "general+practice", display: "General Practice" },
+      { url: "gynecology", display: "Gynecology" },
+      { url: "specialist", display: "HIV/AIDS Specialist" },
+      { url: "hematology", display: "Hematology" },
+      { url: "Infectious", display: "Infectious Disease" },
+      { url: "internal", display: "Internal Medicine" },
+      { url: "nephrology", display: "Nephrology" },
+      { url: "neurology", display: "Neurology" },
+      { url: "occupational", display: "Occupational Therapy" },
+      { url: "ophthalmologist", display: "Ophthalmology" },
+      { url: "optometrist", display: "Optometry" },
+      { url: "otolaryngology", display: "Otolaryngology" },
+      { url: "pathology", display: "Pathology" },
+      { url: "physical+therapy", display: "Physical Therapy" },
+      { url: "podiatry", display: "Podiatry" },
+      { url: "otolaryngology", display: "Otolaryngology" },
     ];
 
     var iconBase = "http://maps.google.com/mapfiles/kml/pal4/icon63.png";
@@ -78,10 +106,14 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       $scope.alreadySearched = true;
       $scope.tryAgain = false;
       
-      if ($scope.doctor === undefined || $scope.doctor.text === undefined) {
+      if ($scope.doctor === undefined) {
+         option = null;
+      } else if ($scope.doctor.display == "name" || $scope.doctor.display == "medical_group") {
+        option = "?" + $scope.doctor.display + "=" + $scope.doctor.text;
+      } else if ($scope.doctor.display === "specialty") {
+        option = "?specialty=" + $scope.specialtyOption.url;
+      } else {
         option = null;
-      } else if ($scope.doctor.display !== undefined) {
-        option = "?" + $scope.doctor.display.toString() + "=" + $scope.doctor.text.toString();
       }
 
       if ($scope.insurance.value === "1" && option === null) {
