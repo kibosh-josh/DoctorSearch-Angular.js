@@ -6,7 +6,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
 
 
     $scope.map = {
-      current_marker: {},
+      currentMarker: {},
       control: {},
       api: [],
       markers: [],
@@ -44,6 +44,10 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       { value: "3", display: "medical_group"}
     ];
 
+    $scope.specialtyOptions = [
+      {}
+    ];
+
     var iconBase = "http://maps.google.com/mapfiles/kml/pal4/icon63.png";
 
     $scope.alreadySearched = false;
@@ -54,6 +58,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       $scope.map.api = [];
       $scope.map.markers = [];
       $scope.alreadySearched = false;
+      $scope.map.currentMarker = {};
       doctorForm.reset();
       if ($scope.doctor !== undefined) {
         $scope.doctor.text = "";
@@ -87,15 +92,18 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
               item.icon = iconBase;
               item.url = null;
               item.showWindow = false;
-              item.stars = null;
+              item.stars = "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/5ef3eb3cb162/ico/stars/v1/stars_3_half.png";
+              item.isYelped = false;
               
               item.onClick = function() {
                 item.showWindow = true;
+                $scope.map.currentMarker = item
                 $scope.$apply();
               };
 
               item.closeClick = function() {
               item.showWindow = false;
+              scope.map.currentMarker = {};
               $scope.$apply();
               };
               if ($scope.map.api.indexOf(item.name) == -1) {
@@ -117,15 +125,18 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
               item.icon = iconBase;
               item.url = null;
               item.showWindow = false;
-              item.stars = null;
+              item.stars = "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/5ef3eb3cb162/ico/stars/v1/stars_3_half.png";
+              item.isYelped = false;
 
               item.onClick = function() {
                 item.showWindow = true;
+                $scope.map.currentMarker = item
                 $scope.$apply();
               };
 
               item.closeClick = function() {
               item.showWindow = false;
+              scope.map.currentMarker = {};
               $scope.$apply();
               };
               if ($scope.map.api.indexOf(item.name) == -1) {
@@ -146,15 +157,18 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
                 item.icon = iconBase;
                 item.url = null;
                 item.showWindow = false;
-                item.stars = null;
+                item.stars = "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/5ef3eb3cb162/ico/stars/v1/stars_3_half.png";
+                item.isYelped = false;
 
                 item.onClick = function() {
                   item.showWindow = true;
+                  $scope.map.currentMarker = item
                   $scope.$apply();
                 };
 
                 item.closeClick = function() {
                 item.showWindow = false;
+                scope.map.currentMarker = {};
                 $scope.$apply();
                 console.log(item)
                 };
@@ -167,19 +181,22 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
           connection = $resource(apiUrl + "blue_cross_HMO.json" + option);
           connection.query().$promise.then(function (result){
             _.each(result, function(item) {
-              if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 40){
+              if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 40) {
                 item.icon = iconBase;
                 item.url = null;
                 item.showWindow = false;
-                item.stars = null;
+                item.stars = "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/5ef3eb3cb162/ico/stars/v1/stars_3_half.png";
+                item.isYelped = false;
 
                 item.onClick = function() {
                   item.showWindow = true;
+                  $scope.map.currentMarker = item
                   $scope.$apply();
                 };
 
                 item.closeClick = function() {
                 item.showWindow = false;
+                scope.map.currentMarker = {};
                 $scope.$apply();
                 console.log(item)
                 };
@@ -192,19 +209,22 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
           connection = $resource(apiUrl + "kaiser.json");
           connection.query().$promise.then(function (result){
             _.each(result, function(item) {
-              if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99){
+              if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 99) {
                 item.icon = iconBase;
                 item.url = null;
                 item.showWindow = false;
                 item.stars = null;
+                item.isYelped = false;
 
                 item.onClick = function() {
                   item.showWindow = true;
+                  $scope.map.currentMarker = item
                   $scope.$apply();
                 };
 
                 item.closeClick = function() {
                 item.showWindow = false;
+                scope.map.currentMarker = {};
                 $scope.$apply();
                 };
               $scope.map.api.push(item);
@@ -221,14 +241,17 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
                 item.url = null;
                 item.showWindow = false;
                 item.stars = null;
+                item.isYelped = false;
 
                 item.onClick = function() {
                   item.showWindow = true;
+                  $scope.map.currentMarker = item
                   $scope.$apply();
                 };
 
                 item.closeClick = function() {
                 item.showWindow = false;
+                scope.map.currentMarker = {};
                 $scope.$apply();
                 };
               $scope.map.api.push(item);
@@ -244,14 +267,17 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
                 item.icon = iconBase;
                 item.url = null;
                 item.showWindow = false;
+                item.isYelped = false;
                 
                 item.onClick = function() {
                   item.showWindow = true;
+                  $scope.map.currentMarker = item
                   $scope.$apply();
                 };
 
                 item.closeClick = function() {
                 item.showWindow = false;
+                scope.map.currentMarker = {};
                 $scope.$apply();
                 };
               $scope.map.api.push(item);
@@ -267,14 +293,17 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
                 item.icon = iconBase;
                 item.url = null;
                 item.showWindow = false;
+                item.isYelped = false;
                 
                 item.onClick = function() {
                   item.showWindow = true;
+                  $scope.map.currentMarker = item
                   $scope.$apply();
                 };
 
                 item.closeClick = function() {
                 item.showWindow = false;
+                scope.map.currentMarker = {};
                 $scope.$apply();
                 };
               $scope.map.api.push(item);
@@ -290,14 +319,17 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
                 item.icon = iconBase;
                 item.url = null;
                 item.showWindow = false;
+                item.isYelped = false;
                 
                 item.onClick = function() {
                   item.showWindow = true;
+                  $scope.map.currentMarker = item
                   $scope.$apply();
                 };
 
                 item.closeClick = function() {
                 item.showWindow = false;
+                scope.map.currentMarker = {};
                 $scope.$apply();
                 };
               $scope.map.api.push(item);
@@ -313,14 +345,17 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
                 item.icon = iconBase;
                 item.url = null;
                 item.showWindow = false;
+                item.isYelped = false;
                 
                 item.onClick = function() {
                   item.showWindow = true;
+                  $scope.map.currentMarker = item
                   $scope.$apply();
                 };
 
                 item.closeClick = function() {
                 item.showWindow = false;
+                scope.map.currentMarker = {};
                 $scope.$apply();
                 };
               $scope.map.api.push(item);
@@ -336,14 +371,17 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
                 item.icon = iconBase;
                 item.url = null;
                 item.showWindow = false;
+                item.isYelped = false;
                 
                 item.onClick = function() {
                   item.showWindow = true;
+                  $scope.map.currentMarker = item
                   $scope.$apply();
                 };
 
                 item.closeClick = function() {
                 item.showWindow = false;
+                scope.map.currentMarker = {};
                 $scope.$apply();
                 };
               $scope.map.api.push(item);
@@ -359,14 +397,17 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
                 item.icon = iconBase;
                 item.url = null;
                 item.showWindow = false;
+                item.isYelped = false;
                 
                 item.onClick = function() {
                   item.showWindow = true;
+                  $scope.map.currentMarker = item
                   $scope.$apply();
                 };
 
                 item.closeClick = function() {
                 item.showWindow = false;
+                scope.map.currentMarker = {};
                 $scope.$apply();
                 };
               $scope.map.api.push(item);
@@ -388,12 +429,8 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
         var urlFriendlyName = marker.name.replace(/ /g, '+')
         var urlFriendlyAddress = marker.address.replace(/ /g, '+')
         var url = "/lookup?q=" + urlFriendlyName + "&l=" + marker.zip_code + "&limit=2"
-        console.log(url)
         var service = $resource(url);
-        marker.stars = "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/5ef3eb3cb162/ico/stars/v1/stars_3_half.png"
         marker.url = "http://www.google.com/#q=" + urlFriendlyName
-        marker.isYelped = false;
-        console.log(marker.url);
         console.log(marker);
 
         service.get().$promise.then(function (data) {
