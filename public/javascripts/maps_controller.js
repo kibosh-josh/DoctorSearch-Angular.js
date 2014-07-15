@@ -118,22 +118,17 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       }
       $scope.alreadySearched = true;
       $scope.tryAgain = false;
-      console.log($scope.doctor);
-      if ($scope.doctor) { 
-        console.log($scope.doctor.display);
-      }
 
       if ($scope.doctor === undefined || $scope.doctor === null) {
          option = null;
       } else if ($scope.doctor.display == "name" || $scope.doctor.display == "medical_group") {
         option = "?" + $scope.doctor.display + "=" + $scope.doctor.text;
-      } else if ($scope.doctor.display === "specialty") {
+      } else if ($scope.doctor.display === "specialty" && $scope.specialtyOption) {
         option = "?specialty=" + $scope.specialtyOption.url;
       } else {
         option = null;
       }
-      console.log(option);
-
+      
       if ($scope.insurance.value === "1" && option === null) {
         connection = $resource(apiUrl + "blue_cross.json");
         populateMarkers(connection);
@@ -142,7 +137,6 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
         connection = $resource(apiUrl + "blue_cross.json" + option);
         populateMarkers(connection);
       
-
       } else if ($scope.insurance.value === "2" && option === null) {
         connection = $resource(apiUrl + "blue_cross_HMO.json");
         populateMarkers(connection);
@@ -199,7 +193,6 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
         };
         var urlFriendlyName = marker.name.replace(/ /g, '+')
         var url = "/lookup?q=" + urlFriendlyName + "&l=" + marker.zip_code + "&limit=3"
-        console.log(url)
         var service = $resource(url);
         marker.url = "http://www.google.com/#q=" + urlFriendlyName
 
@@ -211,13 +204,9 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
               var markerName = marker.name.replace(/,/g, '').replace(/\./g, '').toLowerCase().split(" ")
               var businessName = business.name.replace(/,/g, '').replace(/\./g, '').toLowerCase().split(" ")
               if (_.intersection(markerName, businessName).length > 2) {
-                console.log("match")
                 marker.stars = business.rating_img_url;
-                console.log(marker.stars)
                 marker.url = business.url;
-                console.log(marker.url)
                 marker.isYelped = true;
-                console.log(marker);
               }
             });
           } else {
@@ -263,7 +252,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     var populateMarkers = function(connection) {
       connection.query().$promise.then(function (result) {
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 240){
             item.icon = iconBase;
             item.url = null;
             item.showWindow = false;
