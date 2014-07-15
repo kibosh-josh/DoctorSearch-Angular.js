@@ -99,7 +99,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       $scope.alreadySearched = false;
       $scope.map.currentMarker = {};
       doctorForm.reset();
-      if ($scope.doctor !== undefined) {
+      if ($scope.doctor !== null && $scope.doctor.text !== undefined) {
         $scope.doctor.text = "";
       };
       $scope.doctor = false;
@@ -116,8 +116,8 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       }
       $scope.alreadySearched = true;
       $scope.tryAgain = false;
-      
-      if ($scope.doctor === undefined) {
+
+      if ($scope.doctor === undefined || $scope.doctor === null || $scope.doctor.text === undefined) {
          option = null;
       } else if ($scope.doctor.display == "name" || $scope.doctor.display == "medical_group") {
         option = "?" + $scope.doctor.display + "=" + $scope.doctor.text;
@@ -126,6 +126,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       } else {
         option = null;
       }
+      console.log(option)
 
       if ($scope.insurance.value === "1" && option === null) {
         connection = $resource(apiUrl + "blue_cross.json");
@@ -481,9 +482,16 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
         // if (marker.phone !== null) {
         //   var phone = marker.phone.replace(/[^\w\s]/gi, '');          
         // };
+        if (marker.name.split(" ").length > 3) {
+          marker.name = marker.name.split(" ")[0] + " " + marker.name.split(" ")[1] + " " + marker.name.split(" ")[3];
+        };
         var urlFriendlyName = marker.name.replace(/ /g, '+')
+        console.log(marker.name)
+        console.log(marker.name.split(" "))
+        console.log(urlFriendlyName)
         var urlFriendlyAddress = marker.address.replace(/ /g, '+')
-        var url = "/lookup?q=" + urlFriendlyName + "&l=" + marker.zip_code + "&limit=2"
+        var url = "/lookup?q=" + urlFriendlyName + "&l=" + marker.zip_code + "&limit=3"
+        console.log(url)
         var service = $resource(url);
         marker.url = "http://www.google.com/#q=" + urlFriendlyName
         console.log(marker);
@@ -493,8 +501,11 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
             resultArray = data.businesses;
             _.each(resultArray, function (business) {
               console.log(business)
-              var markerName = marker.name.replace(/,/g, '').toLowerCase().split(" ")
-              var businessName = business.name.replace(/,/g, '').toLowerCase().split(" ")
+              var markerName = marker.name.replace(/,/g, '').replace(/\./g, '').toLowerCase().split(" ")
+              var businessName = business.name.replace(/,/g, '').replace(/\./g, '').toLowerCase().split(" ")
+              console.log(markerName);
+              console.log(businessName);
+              console.log(url)
               if (_.intersection(markerName, businessName).length > 2) {
                 console.log("match")
                 marker.stars = business.rating_img_url;
