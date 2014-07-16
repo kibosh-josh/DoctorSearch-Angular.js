@@ -8,38 +8,8 @@ var yelp = require("yelp").createClient({
   token_secret: "kll6K39QuwwB9Y5sPq_2TqqBXbk"
 });
 
-var yelpv1_phone = function(phone, callback) {
-  var options = {
-    hostname: 'api.yelp.com'
-    ,port: 80
-    ,path: '/phone_search'
-    ,method: 'GET'
-    ,headers: { 'Content-Type': 'application/json' }
-    ,data: {phone: phone}
-  };
-
-  http.request(options, function(res) {
-    res.setEncoding('utf8');
-    res.on('data', function (data) {
-        callback(data); 
-    });
-  });
-};
-
-
 router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
-});
-
-
-router.get('/phone_lookup', function(request, response) {
-
-  var q = request.query.q;
-
-  yelpv1_phone(q, function(data) {
-    response.setHeader('Content-Type', 'application/json');
-    response.end(JSON.stringify(data));
-  }); 
 });
 
 router.get('/lookup', function(request, response) {

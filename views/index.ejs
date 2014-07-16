@@ -20,28 +20,31 @@
                 <span class="icon-bar"></span>
               </button>
               <div class="navbar-brand nav" id="brand">
-                Covered SF
+                Covered SF<button class="btn btn-default" ng-click="clearMap()" ng-show="alreadySearched">Clear Map -- New Search</button>
               </div>
+                  <div class="form-group">
+                  <button class="btn btn-default" ng-click="clearMap()" ng-show="alreadySearched">Clear Map -- New Search</button>
+                </div>
               <img ng-show="neverShow" src="public/images/covered.png"/>
             </div>
             <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
               <ul class="nav navbar-nav">
-                <li class="active has-child"><a href="">My Links</a>
+                <li class="has-child"><a href="">Contact</a>
                   <ul class="child-navigation">
-                    <li><a href="https://github.com/Joshua-Pearson">My Github</a></li>
-                    <li><a href="http://www.linkedin.com/in/joshuapears0n">My LinkedIn</a></li>
-                    <li><a href="http://joshua-pearson.blogspot.com/">My Blog</a></li>
-                    <li><a href="http://joshua-pearson.github.io/">My WebPage</a></li>
+                    <li><a href="https://github.com/Joshua-Pearson" target="_blank">My Github</a></li>
+                    <li><a href="http://www.linkedin.com/in/joshuapears0n" target="_blank">My LinkedIn</a></li>
+                    <li><a href="http://joshua-pearson.blogspot.com/" target="_blank">My Blog</a></li>
+                    <li><a href="http://www.joshuaDpearson.com" target="_blank">My WebPage</a></li>
                   </ul>
                 </li>
                 <li><a href="">Submit</a></li>
-                <li class="has-child"><a href="">Blog</a>
+<!--                 <li class="has-child"><a href="">Blog</a>
                   <ul class="child-navigation">
                     <li><a href="">Blog Listing</a></li>
                     <li><a href="">Blog Post Detail</a></li>
                   </ul>
-                </li>
-                <li><a href="">Contact</a></li>
+                </li> -->
+                <li><a href="mailto:joshua.david.pearson@gmail.com">Email Admin</a></li>
               </ul>
             </nav><!-- /.navbar collapse-->
           </header><!-- /.navbar -->
@@ -191,9 +194,12 @@
                       <article>
                         <h3>About Me</h3>
                         <p>My name is Joshua Pearson and I'm passionate about web development. This was my final project before graduating from
-                          <a href="http://www.generalassemb.ly">www.generalassemb.ly</a>. Please feel free to follow me on twitter 
-                          <a href="http://www.twitter.com/joshuapears0n">www.twitter.com/joshuapears0n</a><br>
-                          <a href="https://github.com/Joshua-Pearson">https://github.com/Joshua-Pearson</a>
+                          <a href="http://www.generalassemb.ly">www.generalassemb.ly</a>. Please feel free to follow me on twitter.
+                          <ul class="list-unstyled list-links">
+                            <li><a href="http://www.twitter.com/joshuapears0n" target="_blank">Twitter</a></li>
+                            <li><a href="https://github.com/Joshua-Pearson" target="_blank">Github</a></li>
+                          </ul>
+                            
                         </p>
                         <hr>
                       </article>
@@ -205,8 +211,8 @@
                             <strong>Joshua Pearson</strong><br><br>San Francisco, CA<br>
                           </address>
                           <ul class="list-unstyled list-links">
-                            <li><a href="mailto:joshua.david.pearson@gmail.com">joshua.david.pearson@gmail.com</a>
-                            <li><a href="http://www.linkedin.com/in/joshuapears0n">My LinkedIn Profile</a>
+                            <li><a href="mailto:joshua.david.pearson@gmail.com">Email</a>
+                            <li><a href="http://www.linkedin.com/in/joshuapears0n" target="_blank">LinkedIn</a>
                           </ul>
                           <hr>
                       </article>
@@ -216,10 +222,10 @@
                       <article>
                         <h3>Useful Links</h3>
                           <ul class="list-unstyled list-links">
-                            <li><a href="">Privacy Policy</a></li>
-                            <li><a href="">Email a suggestion</a></li>
-                            <li><a href="">FAQ</a></li>
-                            <li><a href="">Terms and Conditions</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="mailto:coveredSF@gmail.com">Email a suggestion</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Terms and Conditions</a></li>
                           </ul>
                           <hr>
                       </article>
