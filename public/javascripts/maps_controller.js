@@ -14,7 +14,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
         latitude: 37.7683,
         longitude: -122.4408
       },
-      zoom: 13,
+      zoom: 12,
       zoomControl: false,
       scaleControl: false,
       scrollwheel: false,
