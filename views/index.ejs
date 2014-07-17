@@ -53,7 +53,7 @@
         <window show="map.currentMarker.showWindow" class="infobox-wrapper" closeClick="map.currentMarker.closeClick" coords="map.currentMarker" options="map.windowOptions">
           <div id="popup" style="padding:5px" class="infobox-inner">
             <h4><strong>{{map.currentMarker.name}}</strong></h4>
-            <img ng-src="{{map.currentMarker.stars}}"/><br><br>
+            <img ng-if="map.currentMarker.stars !== null" ng-src="{{map.currentMarker.stars}}"/><br>
             <p>
               <strong>Address</strong><br>
               <span>{{map.currentMarker.address}}</span><br>
@@ -107,7 +107,7 @@
                                   <button class="btn btn-default" ng-click="clearMap()" ng-show="alreadySearched">Clear Map -- New Search</button>
                                 </div>
                             </form><!-- /#form-map -->
-                            <h2 id="results" class="my-show-hide-animation" ng-show="alreadySearched"><em>Showing </em><strong>{{limit}}</strong><em> of  </em><strong> {{map.markers.length}} </strong><em> results.</em></h2>
+                            <h2 id="results" class="my-show-hide-animation" ng-show="alreadySearched"><em>Showing </em><strong>{{limit}}</strong><em> names out of  </em><strong> {{map.markers.length}} </strong><em> results.</em></h2>
                             <h2 id="error" class="my-show-hide-animation" ng-show="tryAgain"><strong><em>Please select an insurance to search</em></strong></h2>
                             <ul>
                               <li ng-repeat="m in map.markers | limitTo:limit"><a ng-click="m.onClick()">{{m.name}}</a></li>

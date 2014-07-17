@@ -38,7 +38,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     };
 
     $scope.currentPage = 0;
-    $scope.limit = 5;
+    $scope.limit = 10;
 
     $scope.insurances = [
     { value: "1", display: "Blue Cross PPO and EPO" },
@@ -183,11 +183,8 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
 
     $scope.markersEvents = {
       click: function (gMarker, eventName, marker) {
-        marker.onClick();
+        // marker.onClick();
         $scope.$apply();
-        // if (marker.phone !== null) {
-        //   var phone = marker.phone.replace(/[^\w\s]/gi, '');          
-        // };
         if (marker.name.split(" ").length > 3) {
           marker.name = marker.name.split(" ")[0] + " " + marker.name.split(" ")[1] + " " + marker.name.split(" ")[3];
         };
@@ -252,15 +249,17 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     var populateMarkers = function(connection) {
       connection.query().$promise.then(function (result) {
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 240){
+          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 378){
             item.icon = iconBase;
             item.url = null;
             item.showWindow = false;
             item.isYelped = false;
+            item.stars = null;
             
             item.onClick = function() {
+              $scope.map.currentMarker = {};
               item.showWindow = true;
-              $scope.map.currentMarker = item
+              $scope.map.currentMarker = item;
             };
 
             item.closeClick = function() {
