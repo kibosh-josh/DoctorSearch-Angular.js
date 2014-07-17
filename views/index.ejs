@@ -112,7 +112,7 @@
                             <ul>
                               <li ng-repeat="m in map.markers | limitTo:limit"><a ng-click="m.onClick()">{{m.name}}</a></li>
                             </ul>
-                            <pagination total-items="totalItems" items-per-page="limit" ng-model="currentPage" ng-show="alreadySearched" ng-change="pageChanged()"></pagination>
+                            <!-- <pagination total-items="totalItems" items-per-page="limit" ng-model="currentPage" ng-show="alreadySearched" ng-change="pageChanged()"></pagination> -->
                             <!--<pagination boundary-links="true" total-items="totalItems" items-per-page="limit" ng-model="currentPage" class="pagination-md" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>-->
                         </div><!-- /.search-box.map -->
                     </div><!-- /.col-md-4 -->
