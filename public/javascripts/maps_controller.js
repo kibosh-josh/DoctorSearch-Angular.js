@@ -34,7 +34,6 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     };
 
     $scope.pageChanged = function() {
-      console.log('Page changed to: ' + $scope.currentPage);
     };
 
     $scope.currentPage = 0;
@@ -112,7 +111,6 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       var option;
       var connection;
       if ($scope.insurance === undefined || $scope.insurance.value === undefined) {
-        console.log("try again");
         $scope.tryAgain = true;
         return;
       }
@@ -197,7 +195,6 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
           if (data.businesses) {
             resultArray = data.businesses;
             _.each(resultArray, function (business) {
-              console.log(business)
               var markerName = marker.name.replace(/,/g, '').replace(/\./g, '').toLowerCase().split(" ")
               var businessName = business.name.replace(/,/g, '').replace(/\./g, '').toLowerCase().split(" ")
               if (_.intersection(markerName, businessName).length > 2) {
@@ -207,7 +204,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
               }
             });
           } else {
-            console.log("no results")
+            alert("no results");
           }
         });
       },
