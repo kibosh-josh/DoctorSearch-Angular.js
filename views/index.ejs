@@ -100,14 +100,17 @@
                                     <option value="" ng-hide="specialtyOption">Specialties</option>
                                   </select>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" ng-hide="alreadySearched">
                                   <button class="btn btn-default" ng-click="getDoctors()" ng-hide="alreadySearched">Search</button>
                                 </div><!-- /.form-group -->
-                                <div class="form-group">
-                                  <button class="btn btn-default" ng-click="clearMap()" ng-show="alreadySearched">Clear Map -- New Search</button>
+                                <div class="form-group" ng-show="loading">
+                                  <button class="btn btn-default">Searching<img ng-src="images/ajax-loader.gif"></button>
+                                </div><!-- /.form-group -->
+                                <div class="form-group" ng-show="alreadySearched && loading == false">
+                                  <button class="btn btn-default" ng-click="clearMap()" ng-show="alreadySearched && loading == false">Clear Map -- New Search</button>
                                 </div>
                             </form><!-- /#form-map -->
-                            <h2 id="results" class="my-show-hide-animation" ng-show="alreadySearched"><em>Showing </em><strong>{{limit}}</strong><em> names out of  </em><strong> {{map.markers.length}} </strong><em> results.</em></h2>
+                            <h2 id="results" class="my-show-hide-animation" ng-show="alreadySearched && loading == false"><em>Showing </em><strong>{{limit}}</strong><em> names out of  </em><strong> {{map.markers.length}} </strong><em> results.</em></h2>
                             <h2 id="error" class="my-show-hide-animation" ng-show="tryAgain"><strong><em>Please select an insurance to search</em></strong></h2>
                             <ul>
                               <li ng-repeat="m in map.markers | limitTo:limit"><a ng-click="m.onClick()">{{m.name}}</a></li>

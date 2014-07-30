@@ -38,6 +38,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
 
     $scope.currentPage = 0;
     $scope.limit = 10;
+    $scope.loading = false;
 
     $scope.insurances = [
     { value: "1", display: "Blue Cross PPO and EPO" },
@@ -128,50 +129,62 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       }
       
       if ($scope.insurance.value === "1" && option === null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "blue_cross.json");
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "1" && option !== null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "blue_cross.json" + option);
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "2" && option === null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "blue_cross_HMO.json");
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "2" && option !== null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "blue_cross_HMO.json" + option);
         populateMarkers(connection);     
       
       } else if ($scope.insurance.value === "3" && option === null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "kaiser.json");
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "3" && option !== null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "kaiser.json" + option);
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "4" && option === null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "blue_shield.json");
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "4" && option !== null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "blue_shield.json" + option);
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "5" && option === null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "blue_shield_EPO.json");
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "5" && option !== null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "blue_shield_EPO.json" + option);
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "6" && option === null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "cchp.json");
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "6" && option !== null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "cchp.json" + option);
         populateMarkers(connection);
       
@@ -268,6 +281,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
             }
           }
         });
+        $scope.loading = false;
         $scope.map.markers = $scope.map.api;
         $scope.totalItems = $scope.map.markers.length
         $scope.currentPage = 1;
