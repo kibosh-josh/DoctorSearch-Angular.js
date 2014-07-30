@@ -29,16 +29,20 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     };
     $scope.markersOptions = {animation: google.maps.Animation.DROP};
 
-    $scope.setPage = function (pageNo) {
-      $scope.currentPage = pageNo;
+    $scope.numPages = function () {
+      return Math.ceil($scope.api.length / $scope.numPerPage);
     };
 
-    $scope.pageChanged = function() {
-    };
+    $scope.$watch('currentPage + numPerPage', function() {
+      var begin = (($scope.currentPage - 1) * $scope.numPerPage);
+      var end = begin + $scope.numPerPage;
+      $scope.map.markers = $scope.api.slice(begin, end);
+    });
 
+    $scope.maxSize = 3;
     $scope.more = true;
     $scope.currentPage = 0;
-    $scope.limit = 10;
+    $scope.numPerPage = 10;
     $scope.loading = false;
     $scope.statusBar = "Showing" + ($scope.map.markers.length === 0 ? "0" : $scope.limit.toString()) + "results";
 
@@ -311,7 +315,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
         $scope.map.markers = $scope.map.api;
         $scope.totalItems = $scope.map.markers.length
         $scope.currentPage = 1;
-        $scope.statusBar = "Showing " + ($scope.map.markers.length === 0 ? "0" : $scope.limit.toString()) + " of " + $scope.map.markers.length + " results";
+        $scope.statusBar = "Showing " + ($scope.map.markers.length === 0 ? "0" : $scope.numPerPage.toString()) + " of " + $scope.map.markers.length + " results";
       });
     };
 }]);

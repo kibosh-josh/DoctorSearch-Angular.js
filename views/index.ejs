@@ -106,17 +106,16 @@
                                 <div class="form-group" ng-show="loading">
                                   <button class="btn btn-default">Searching<img ng-src="images/ajax-loader.gif"></button>
                                 </div><!-- /.form-group -->
-                                <div class="form-group" ng-show="alreadySearched && loading == false">
-                                  <button class="btn btn-default" ng-click="clearMap()" ng-show="alreadySearched && loading == false">Clear Map -- New Search</button>
+                                <div class="form-group" ng-show="alreadySearched && loading === false">
+                                  <button class="btn btn-default" ng-click="clearMap()" ng-show="alreadySearched && loading === false">Clear Map -- New Search</button>
                                 </div>
                             </form><!-- /#form-map -->
                             <h2 id="results" class="my-show-hide-animation" ng-show="alreadySearched && loading == false"><!-- <em>Showing </em><strong>{{limit}}</strong><em> names out of  </em><strong> {{map.markers.length}} </strong><em> results.</em> --><em><strong>{{statusBar}}</em></strong></h2>
                             <h2 id="error" class="my-show-hide-animation" ng-show="tryAgain"><strong><em>Please select an insurance to search</em></strong></h2>
                             <ul>
-                              <li ng-repeat="m in map.markers | limitTo:limit"><a ng-click="m.onClick()">{{m.name}}</a></li>
+                              <li ng-repeat="m in map.markers | limitTo:numPerPage"><a ng-click="m.onClick()">{{m.name}}</a></li>
                             </ul>
-                            <!-- <pagination total-items="totalItems" items-per-page="limit" ng-model="currentPage" ng-show="alreadySearched" ng-change="pageChanged()"></pagination> -->
-                            <!--<pagination boundary-links="true" total-items="totalItems" items-per-page="limit" ng-model="currentPage" class="pagination-md" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>-->
+                            <pagination boundary-links="true" data-max-size="maxSize" total-items="totalItems" items-per-page="numPerPage" ng-model="currentPage" ng-show="alreadySearched && loading === false" class="pagination-md" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
                         </div><!-- /.search-box.map -->
                     </div><!-- /.col-md-4 -->
                 </div><!-- /.row -->
