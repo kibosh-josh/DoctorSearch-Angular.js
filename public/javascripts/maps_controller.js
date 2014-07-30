@@ -36,9 +36,11 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     $scope.pageChanged = function() {
     };
 
+    $scope.more = true;
     $scope.currentPage = 0;
     $scope.limit = 10;
     $scope.loading = false;
+    $scope.statusBar = "Showing" + ($scope.map.markers.length === 0 ? "0" : $scope.limit.toString()) + "results";
 
     $scope.insurances = [
     { value: "1", display: "Blue Cross PPO and EPO" },
@@ -92,10 +94,24 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     $scope.alreadySearched = false;
     $scope.tryAgain = false;
 
+    $scope.hasMore = function () {
+      return $scope.more;
+    }
+    
+    $scope.showMore = function () {
+        $scope.page += 1;
+        $scope.loadData();
+    }
+
 
     $scope.clearMap = function() {
       $scope.map.api = [];
       $scope.map.markers = [];
+      $scope.map.zoom = 12;
+      $scope.map.center = {
+        latitude: 37.7683,
+        longitude: -122.4408
+      };
       $scope.alreadySearched = false;
       $scope.map.currentMarker = {};
       doctorForm.reset();
@@ -194,6 +210,11 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
 
     $scope.markersEvents = {
       click: function (gMarker, eventName, marker) {
+        $scope.map.center = {
+          latitude: marker.latitude,
+          longitude: marker.longitude
+        };
+        $scope.map.zoom = 13;
         // marker.onClick();
         $scope.$apply();
         if (marker.name.split(" ").length > 3) {
@@ -270,6 +291,11 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
               $scope.map.currentMarker = {};
               item.showWindow = true;
               $scope.map.currentMarker = item;
+              $scope.map.center = {
+                latitude: item.latitude,
+                longitude: item.longitude
+              };
+              $scope.map.zoom = 13;
             };
 
             item.closeClick = function() {
@@ -285,6 +311,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
         $scope.map.markers = $scope.map.api;
         $scope.totalItems = $scope.map.markers.length
         $scope.currentPage = 1;
+        $scope.statusBar = "Showing " + ($scope.map.markers.length === 0 ? "0" : $scope.limit.toString()) + " of " + $scope.map.markers.length + " results";
       });
     };
 }]);

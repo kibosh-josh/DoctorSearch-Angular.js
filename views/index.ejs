@@ -53,18 +53,18 @@
         <window show="map.currentMarker.showWindow" class="infobox-wrapper" closeClick="map.currentMarker.closeClick" coords="map.currentMarker" options="map.windowOptions">
           <div id="popup" style="padding:5px" class="infobox-inner">
             <h4><strong>{{map.currentMarker.name}}</strong></h4>
-            <img ng-if="map.currentMarker.stars !== null" ng-src="{{map.currentMarker.stars}}"/><br>
+            <img ng-if="map.currentMarker.stars !== null" ng-src="{{map.currentMarker.stars}}"/>
             <p>
               <strong>Address</strong><br>
-              <span>{{map.currentMarker.address}}</span><br>
+              <span>{{map.currentMarker.address}}</span>
             </p>
             <p ng-if="map.currentMarker.phone !== null">
               <strong>Phone</strong><br>
-              <span>{{map.currentMarker.phone}}</span><br><br>
+              <span>{{map.currentMarker.phone}}</span>
             </p>
             <p ng-if="map.currentMarker.specialty !== null">
               <strong>Specialty</strong><br>
-              <span>{{map.currentMarker.specialty}}</span><br><br>
+              <span>{{map.currentMarker.specialty}}</span><br>
             </p>
             <p>
               <strong><a ng-show="map.currentMarker.url.search('yelp') > -1" ng-href="{{map.currentMarker.url}}" target="_blank">Go to The Yelp Site </a><strong>
@@ -110,7 +110,7 @@
                                   <button class="btn btn-default" ng-click="clearMap()" ng-show="alreadySearched && loading == false">Clear Map -- New Search</button>
                                 </div>
                             </form><!-- /#form-map -->
-                            <h2 id="results" class="my-show-hide-animation" ng-show="alreadySearched && loading == false"><em>Showing </em><strong>{{limit}}</strong><em> names out of  </em><strong> {{map.markers.length}} </strong><em> results.</em></h2>
+                            <h2 id="results" class="my-show-hide-animation" ng-show="alreadySearched && loading == false"><!-- <em>Showing </em><strong>{{limit}}</strong><em> names out of  </em><strong> {{map.markers.length}} </strong><em> results.</em> --><em><strong>{{statusBar}}</em></strong></h2>
                             <h2 id="error" class="my-show-hide-animation" ng-show="tryAgain"><strong><em>Please select an insurance to search</em></strong></h2>
                             <ul>
                               <li ng-repeat="m in map.markers | limitTo:limit"><a ng-click="m.onClick()">{{m.name}}</a></li>
