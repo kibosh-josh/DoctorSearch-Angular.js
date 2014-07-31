@@ -214,7 +214,6 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
           longitude: marker.longitude
         };
         $scope.map.zoom = 13;
-        marker.onClick();
         $scope.$apply();
         if (marker.name.split(" ").length > 3) {
           marker.name = marker.name.split(" ")[0] + " " + marker.name.split(" ")[1] + " " + marker.name.split(" ")[3];
@@ -295,6 +294,31 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
                 longitude: item.longitude
               };
               $scope.map.zoom = 13;
+              // $scope.$apply();
+              if (item.name.split(" ").length > 3) {
+                item.name = item.name.split(" ")[0] + " " + item.name.split(" ")[1] + " " + item.name.split(" ")[3];
+              };
+              var urlFriendlyName = item.name.replace(/ /g, '+')
+              var url = "/lookup?q=" + urlFriendlyName + "&l=" + item.zip_code + "&limit=3"
+              var service = $resource(url);
+              item.url = "http://www.google.com/#q=" + urlFriendlyName
+
+              service.get().$promise.then(function (data) {
+                if (data.businesses) {
+                  resultArray = data.businesses;
+                  _.each(resultArray, function (business) {
+                    var itemName = item.name.replace(/,/g, '').replace(/\./g, '').toLowerCase().split(" ")
+                    var businessName = business.name.replace(/,/g, '').replace(/\./g, '').toLowerCase().split(" ")
+                    if (_.intersection(itemName, businessName).length > 2) {
+                      item.stars = business.rating_img_url;
+                      item.url = business.url;
+                      item.isYelped = true;
+                    }
+                  });
+                } else {
+                  alert("no results");
+                }
+              });
             };
 
             item.closeClick = function() {
