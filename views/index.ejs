@@ -67,8 +67,8 @@
               <span>{{map.currentMarker.specialty}}</span><br>
             </p>
             <p>
-              <strong><a ng-show="map.currentMarker.url.search('yelp') > -1" ng-href="{{map.currentMarker.url}}" target="_blank">Go to The Yelp Site </a><strong>
-              <strong><a ng-hide="map.currentMarker.url.search('yelp') > -1" ng-href="{{map.currentMarker.url}}" target="_blank">No Yelp Reviews, Google Results</a><strong>
+              <strong><a ng-show="{{map.currentMarker.isYelped}}" ng-href="{{map.currentMarker.url}}" target="_blank">Go to The Yelp Site </a><strong>
+              <strong><a ng-hide="{{map.currentMarker.isYelped}}" ng-href="{{map.currentMarker.url}}" target="_blank">No Yelp Reviews, Google Results</a><strong>
             </p>
           </div>
         </window>
