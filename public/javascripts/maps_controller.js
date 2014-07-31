@@ -29,15 +29,26 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     };
     $scope.markersOptions = {animation: google.maps.Animation.DROP};
 
+    $scope.numPages = function () {
+      return Math.ceil($scope.map.api.length / $scope.numPerPage);
+    };
+    
     $scope.setPage = function (pageNo) {
       $scope.currentPage = pageNo;
     };
 
-    $scope.pageChanged = function() {
-    };
+    $scope.$watch('currentPage + numPerPage', function() {
+      var begin = (($scope.currentPage - 1) * $scope.numPerPage);
+      var end = begin + $scope.numPerPage;
+      $scope.map.markers = $scope.map.api.slice(begin, end);
+    });
 
+    $scope.maxSize = 3;
+    $scope.more = true;
     $scope.currentPage = 0;
-    $scope.limit = 10;
+    $scope.numPerPage = 10;
+    $scope.loading = false;
+    $scope.statusBar = "Showing" + ($scope.map.markers.length === 0 ? "0" : $scope.limit.toString()) + "results";
 
     $scope.insurances = [
     { value: "1", display: "Blue Cross PPO and EPO" },
@@ -95,6 +106,11 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     $scope.clearMap = function() {
       $scope.map.api = [];
       $scope.map.markers = [];
+      $scope.map.zoom = 12;
+      $scope.map.center = {
+        latitude: 37.7683,
+        longitude: -122.4408
+      };
       $scope.alreadySearched = false;
       $scope.map.currentMarker = {};
       doctorForm.reset();
@@ -128,50 +144,62 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       }
       
       if ($scope.insurance.value === "1" && option === null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "blue_cross.json");
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "1" && option !== null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "blue_cross.json" + option);
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "2" && option === null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "blue_cross_HMO.json");
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "2" && option !== null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "blue_cross_HMO.json" + option);
         populateMarkers(connection);     
       
       } else if ($scope.insurance.value === "3" && option === null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "kaiser.json");
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "3" && option !== null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "kaiser.json" + option);
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "4" && option === null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "blue_shield.json");
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "4" && option !== null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "blue_shield.json" + option);
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "5" && option === null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "blue_shield_EPO.json");
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "5" && option !== null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "blue_shield_EPO.json" + option);
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "6" && option === null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "cchp.json");
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "6" && option !== null) {
+        $scope.loading = true;
         connection = $resource(apiUrl + "cchp.json" + option);
         populateMarkers(connection);
       
@@ -181,7 +209,12 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
 
     $scope.markersEvents = {
       click: function (gMarker, eventName, marker) {
-        // marker.onClick();
+        $scope.map.center = {
+          latitude: marker.latitude,
+          longitude: marker.longitude
+        };
+        $scope.map.zoom = 13;
+        marker.onClick();
         $scope.$apply();
         if (marker.name.split(" ").length > 3) {
           marker.name = marker.name.split(" ")[0] + " " + marker.name.split(" ")[1] + " " + marker.name.split(" ")[3];
@@ -246,7 +279,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     var populateMarkers = function(connection) {
       connection.query().$promise.then(function (result) {
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 378){
+          if (item.latitude !== null && item.longitude !== null) {
             item.icon = iconBase;
             item.url = null;
             item.showWindow = false;
@@ -257,20 +290,29 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
               $scope.map.currentMarker = {};
               item.showWindow = true;
               $scope.map.currentMarker = item;
+              $scope.map.center = {
+                latitude: item.latitude,
+                longitude: item.longitude
+              };
+              $scope.map.zoom = 13;
             };
 
             item.closeClick = function() {
             item.showWindow = false;
             $scope.map.currentMarker = {};
             };
+
             if (_.find($scope.map.api, { 'name': item.name }) === undefined) {
               $scope.map.api.push(item);
             }
           }
         });
-        $scope.map.markers = $scope.map.api;
+        $scope.numPages();  
+        $scope.setPage(1);  
+        $scope.loading = false;
+        $scope.map.markers = $scope.map.api
         $scope.totalItems = $scope.map.markers.length
-        $scope.currentPage = 1;
+        $scope.statusBar = "Showing " + ($scope.map.markers.length === 0 ? "0" : $scope.numPerPage.toString()) + " of " + $scope.map.api.length + " results";
       });
     };
 }]);
