@@ -30,13 +30,17 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     $scope.markersOptions = {animation: google.maps.Animation.DROP};
 
     $scope.numPages = function () {
-      return Math.ceil($scope.api.length / $scope.numPerPage);
+      return Math.ceil($scope.map.api.length / $scope.numPerPage);
+    };
+    
+    $scope.setPage = function (pageNo) {
+      $scope.currentPage = pageNo;
     };
 
     $scope.$watch('currentPage + numPerPage', function() {
       var begin = (($scope.currentPage - 1) * $scope.numPerPage);
       var end = begin + $scope.numPerPage;
-      $scope.map.markers = $scope.api.slice(begin, end);
+      $scope.map.markers = $scope.map.api.slice(begin, end);
     });
 
     $scope.maxSize = 3;
@@ -97,15 +101,6 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
 
     $scope.alreadySearched = false;
     $scope.tryAgain = false;
-
-    $scope.hasMore = function () {
-      return $scope.more;
-    }
-    
-    $scope.showMore = function () {
-        $scope.page += 1;
-        $scope.loadData();
-    }
 
 
     $scope.clearMap = function() {
@@ -219,7 +214,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
           longitude: marker.longitude
         };
         $scope.map.zoom = 13;
-        // marker.onClick();
+        marker.onClick();
         $scope.$apply();
         if (marker.name.split(" ").length > 3) {
           marker.name = marker.name.split(" ")[0] + " " + marker.name.split(" ")[1] + " " + marker.name.split(" ")[3];
@@ -284,7 +279,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     var populateMarkers = function(connection) {
       connection.query().$promise.then(function (result) {
         _.each(result, function(item) {
-          if (item.latitude !== null && item.longitude !== null && $scope.map.api.length < 378){
+          if (item.latitude !== null && item.longitude !== null) {
             item.icon = iconBase;
             item.url = null;
             item.showWindow = false;
@@ -306,16 +301,18 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
             item.showWindow = false;
             $scope.map.currentMarker = {};
             };
+
             if (_.find($scope.map.api, { 'name': item.name }) === undefined) {
               $scope.map.api.push(item);
             }
           }
         });
+        $scope.numPages();  
+        $scope.setPage(1);  
         $scope.loading = false;
-        $scope.map.markers = $scope.map.api;
+        $scope.map.markers = $scope.map.api
         $scope.totalItems = $scope.map.markers.length
-        $scope.currentPage = 1;
-        $scope.statusBar = "Showing " + ($scope.map.markers.length === 0 ? "0" : $scope.numPerPage.toString()) + " of " + $scope.map.markers.length + " results";
+        $scope.statusBar = "Showing " + ($scope.map.markers.length === 0 ? "0" : $scope.numPerPage.toString()) + " of " + $scope.map.api.length + " results";
       });
     };
 }]);
