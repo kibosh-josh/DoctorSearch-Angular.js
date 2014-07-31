@@ -12,6 +12,7 @@ var routes = require('./routes/index');
 var app = express();
 
 // view engine setup
+app.use(minify());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -20,6 +21,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
+app.use(minify());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public', express.static(__dirname + '/public'));
 
@@ -51,4 +53,3 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
-app.use(minify());
