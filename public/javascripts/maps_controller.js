@@ -95,6 +95,11 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       { url: "physical+therapy", display: "Physical Therapy" },
       { url: "podiatry", display: "Podiatry" },
       { url: "otolaryngology", display: "Otolaryngology" },
+      { url: "surgery", display: "Surgery" },
+      { url: "urology", display: "Urology" },
+      { url: "speech", display: "Speech Pathology" },
+      { url: "oncology", display: "Oncology" },
+      { url: "preventive", display: "Preventive Medicine" },
     ];
 
     var iconBase = "http://maps.google.com/mapfiles/kml/pal4/icon63.png";

@@ -4622,23 +4622,6 @@ body, html {
     top: 0 !important;
   }
 
-  .display-lines .property {
-    padding-left: 0px;
-  }
-  .display-lines .property .info a {
-    position: relative !important;
-  }
-  .display-lines .property .info aside p, .display-lines .property .info aside dl {
-    float: none;
-    width: 100%;
-  }
-  .display-lines .property .property-image {
-    height: auto;
-    margin-bottom: 20px;
-    position: relative;
-    width: 100%;
-  }
-
   .feature-box {
     margin-bottom: 30px !important;
   }
@@ -4683,22 +4666,6 @@ body, html {
     background-color: #fff !important;
   }
   .horizontal-search .submit-features li {
-    width: 100%;
-  }
-
-  .logos {
-    padding: 0;
-    text-align: center;
-  }
-  .logos .logo {
-    display: block;
-    margin-bottom: 40px;
-  }
-  .logos .logo:last-child {
-    margin-bottom: 0;
-  }
-
-  .floor-plans img {
     width: 100%;
   }
 
@@ -5068,11 +5035,12 @@ body, html {
 
 .my-show-hide-animation.ng-hide-add,
 .my-show-hide-animation.ng-hide-remove {
-  -webkit-transition:0.3s linear all;
-  transition:0.3s linear all;
+  -webkit-transition:0.2s linear all;
+  transition:0.2s linear all;
   display:block!important;
   opacity:1;
 }
+
 .my-show-hide-animation.ng-hide {
   opacity:0;
 }
