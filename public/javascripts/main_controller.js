@@ -1,13 +1,8 @@
 MainController = angular.module("MainController", []);
 
-MainController.controller("mainCtrl", ["$scope", "$http", "$resource", function($scope, $http, $resource) {
+MainController.controller("mainCtrl", ["$scope", function($scope) {
   
-    $scope.yelp = [];
-    $scope.doctors = [];
-    $scope.footer = false
-
-    var url = "http://doctorstats.herokuapp.com/api/v1/doctors.json";
-    var Connection = $resource(url);
+    $scope.footer = false;
 
     $scope.showFooter = function() {
       $scope.footer = true;
