@@ -343,7 +343,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
         $scope.loading = false;
         $scope.map.markers = $scope.map.api
         $scope.totalItems = $scope.map.markers.length
-        $scope.statusBar = "Showing " + ($scope.map.markers.length === 0 ? "0" : $scope.numPerPage.toString()) + " of " + $scope.map.api.length + " results";
+        $scope.statusBar = "Showing " + ($scope.map.markers.length <= 10 ? $scope.map.markers.length : $scope.numPerPage.toString()) + " of " + $scope.map.api.length + " results";
       });
     };
 }]);
