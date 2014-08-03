@@ -114,7 +114,7 @@
                             <ul>
                               <li ng-repeat="m in map.markers | limitTo:numPerPage"><a ng-click="m.onClick()">{{m.name}}</a></li>
                             </ul>
-                            <pagination boundary-links="true" data-max-size="maxSize" page="currentPage" total-items="totalItems" items-per-page="numPerPage" ng-show="alreadySearched && loading === false" class="pagination-md" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>map.markers.length:{{map.markers.length}}<br>map.api.length:{{map.api.length}}<br>currentPage:{{currentPage}}
+                            <pagination boundary-links="true" data-max-size="maxSize" page="currentPage" total-items="totalItems" items-per-page="numPerPage" ng-show="alreadySearched && loading === false" class="pagination-md" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
                         </div><!-- /.search-box.map -->
                     </div><!-- /.col-md-4 -->
                 </div><!-- /.row -->
