@@ -3,6 +3,8 @@ MapsController = angular.module("MapsController", []);
 MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($scope, $http, $resource) {
     var apiUrl = "http://doctorstats.herokuapp.com/api/v1/";
     var mapStyles = [{"featureType":"water","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]},{"featureType":"landscape","stylers":[{"color":"#f2e5d4"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"administrative","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"road"},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{},{"featureType":"road","stylers":[{"lightness":20}]}];
+    var iconBase = "http://maps.google.com/mapfiles/kml/pal4/icon63.png";
+
 
 
     $scope.map = {
@@ -28,27 +30,11 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       },
     };
     $scope.markersOptions = {animation: google.maps.Animation.DROP};
-
-    $scope.numPages = function () {
-      return Math.ceil($scope.map.api.length / $scope.numPerPage);
-    };
-    
-    $scope.setPage = function (pageNo) {
-      $scope.currentPage = pageNo;
-    };
-
-    $scope.$watch('currentPage + numPerPage', function() {
-      var begin = (($scope.currentPage - 1) * $scope.numPerPage);
-      var end = begin + $scope.numPerPage;
-      $scope.map.markers = $scope.map.api.slice(begin, end);
-    });
-
-    $scope.maxSize = 3;
-    $scope.more = true;
+    $scope.alreadySearched = false;
+    $scope.tryAgain = false;
     $scope.currentPage = 0;
     $scope.numPerPage = 10;
     $scope.loading = false;
-    $scope.statusBar = "Showing" + ($scope.map.markers.length === 0 ? "0" : $scope.limit.toString()) + "results";
 
     $scope.insurances = [
     { value: "1", display: "Blue Cross PPO and EPO" },
@@ -102,11 +88,19 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       { url: "preventive", display: "Preventive Medicine" },
     ];
 
-    var iconBase = "http://maps.google.com/mapfiles/kml/pal4/icon63.png";
+    $scope.numPages = function() {
+      return Math.ceil($scope.map.api.length / $scope.numPerPage);
+    };
+    
+    $scope.setPage = function(pageNo) {
+      $scope.currentPage = pageNo;
+    };
 
-    $scope.alreadySearched = false;
-    $scope.tryAgain = false;
-
+    $scope.$watch('currentPage + numPerPage', function() {
+      var begin = (($scope.currentPage - 1) * $scope.numPerPage);
+      var end = begin + $scope.numPerPage;
+      $scope.map.markers = $scope.map.api.slice(begin, end);
+    });
 
     $scope.clearMap = function() {
       $scope.map.api = [];
@@ -126,6 +120,9 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
       }
       $scope.doctor = false;
       $scope.insurance = false;
+      $scope.currentPage = 0;
+      $scope.numPerPage = 10;
+      $scope.loading = false;
     };
 
     $scope.getDoctors = function() {
@@ -146,69 +143,54 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
         option = "?specialty=" + $scope.specialtyOption.url;
       } else {
         option = null;
-      }
-      
+      }    
       if ($scope.insurance.value === "1" && option === null) {
-        $scope.loading = true;
         connection = $resource(apiUrl + "blue_cross.json");
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "1" && option !== null) {
-        $scope.loading = true;
         connection = $resource(apiUrl + "blue_cross.json" + option);
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "2" && option === null) {
-        $scope.loading = true;
         connection = $resource(apiUrl + "blue_cross_HMO.json");
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "2" && option !== null) {
-        $scope.loading = true;
         connection = $resource(apiUrl + "blue_cross_HMO.json" + option);
         populateMarkers(connection);     
       
       } else if ($scope.insurance.value === "3" && option === null) {
-        $scope.loading = true;
         connection = $resource(apiUrl + "kaiser.json");
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "3" && option !== null) {
-        $scope.loading = true;
         connection = $resource(apiUrl + "kaiser.json" + option);
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "4" && option === null) {
-        $scope.loading = true;
         connection = $resource(apiUrl + "blue_shield.json");
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "4" && option !== null) {
-        $scope.loading = true;
         connection = $resource(apiUrl + "blue_shield.json" + option);
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "5" && option === null) {
-        $scope.loading = true;
         connection = $resource(apiUrl + "blue_shield_EPO.json");
         populateMarkers(connection);
       
       } else if ($scope.insurance.value === "5" && option !== null) {
-        $scope.loading = true;
         connection = $resource(apiUrl + "blue_shield_EPO.json" + option);
         populateMarkers(connection);
       
-      } else if ($scope.insurance.value === "6" && option === null) {
-        $scope.loading = true;
-        connection = $resource(apiUrl + "cchp.json");
-        populateMarkers(connection);
-      
       } else if ($scope.insurance.value === "6" && option !== null) {
-        $scope.loading = true;
         connection = $resource(apiUrl + "cchp.json" + option);
         populateMarkers(connection);
-      
+
       } else {
+        connection = $resource(apiUrl + "cchp.json");
+        populateMarkers(connection);
       }
     };
 
@@ -282,6 +264,7 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     }
 
     var populateMarkers = function(connection) {
+      $scope.loading = true;
       connection.query().$promise.then(function (result) {
         _.each(result, function(item) {
           if (item.latitude !== null && item.longitude !== null) {
