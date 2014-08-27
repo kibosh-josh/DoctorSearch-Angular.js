@@ -47,10 +47,10 @@
         </div><!-- /.container -->
       </div>
     <div ng-controller="mapCtrl">
-      <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" events="map.events" control="map.control" styles="map.styles" options="{scrollwheel: false}">
-        <markers models="map.markers" class="marker-style" coords="'self'" click="'onClick'" events="markersEvents">
+      <google-map center="map.center" zoom="map.zoom" draggable="true" dragging="map.dragging" events="map.events" control="map.control" styles="map.styles" options="{scrollwheel: false}" pan="true">
+        <markers models="map.markers" class="marker-style" coords="'self'" click="'onClick'" events="markersEvents" pan="true">
         </markers>
-        <window show="map.currentMarker.showWindow" class="infobox-wrapper" closeClick="map.currentMarker.closeClick" coords="map.currentMarker" options="map.windowOptions">
+        <window show="map.currentMarker.showWindow" class="infobox-wrapper" closeClick="map.currentMarker.closeClick" coords="map.currentMarker" options="map.windowOptions" pan="true">
           <div id="popup" style="padding:5px" class="infobox-inner">
             <h4><strong>{{map.currentMarker.name}}</strong></h4>
             <img ng-if="map.currentMarker.stars !== null" ng-src="{{map.currentMarker.stars}}"/>
