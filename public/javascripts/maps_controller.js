@@ -35,6 +35,8 @@ MapsController.controller('mapCtrl', ["$scope", "$http", "$resource", function($
     $scope.currentPage = 0;
     $scope.numPerPage = 10;
     $scope.loading = false;
+    $scope.maxSize = 3;
+    $scope.more = true;
 
     $scope.insurances = [
     { value: "1", display: "Blue Cross PPO and EPO" },
